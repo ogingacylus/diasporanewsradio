@@ -1,37 +1,43 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { Star } from "lucide-react"
 
+interface Testimonial {
+  id: number
+  author_name: string
+  role: string
+  content: string
+  rating: number
+  image_url?: string
+}
+
 export function Testimonials() {
-  const testimonials = [
-    {
-      id: 1,
-      name: "Emma Johnson",
-      role: "Listener, New York",
-      content:
-        "WAVE Radio is my daily companion. The diversity of shows and exceptional hosts make it my go-to station for music and news.",
-      rating: 5,
-      image: "/professional-woman-portrait.png",
-    },
-    {
-      id: 2,
-      name: "Marcus Chen",
-      role: "Podcast Producer",
-      content:
-        "The production quality is outstanding. WAVE has set the industry standard for what professional broadcasting should sound like.",
-      rating: 5,
-      image: "/professional-portrait-man.jpg",
-    },
-    {
-      id: 3,
-      name: "Sophie Laurent",
-      role: "Music Enthusiast, Paris",
-      content:
-        "From indie to jazz, WAVE Radio covers everything. The curated playlists are always on point. Absolutely love it!",
-      rating: 5,
-      image: "/professional-portrait-woman-smiling.jpg",
-    },
-  ]
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch("/api/testimonials")
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status}`)
+        }
+        const data = await response.json()
+        setTestimonials(Array.isArray(data) ? data : [])
+        setError(null)
+      } catch (error) {
+        console.error("[v0] Failed to fetch testimonials:", error)
+        setError("Unable to load testimonials")
+        setTestimonials([])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchTestimonials()
+  }, [])
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card border-y border-border">
@@ -43,34 +49,45 @@ export function Testimonials() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="rounded-xl border border-border bg-background p-8 hover:border-accent transition-all duration-300 hover:shadow-lg"
-            >
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star key={i} size={18} className="fill-accent text-accent" />
-                ))}
-              </div>
+        {loading ? (
+          <div className="text-center text-muted-foreground">Loading testimonials...</div>
+        ) : error ? (
+          <div className="text-center text-muted-foreground">
+            <p>{error}</p>
+            <p className="text-sm mt-2">Initialize the database to see testimonials.</p>
+          </div>
+        ) : testimonials.length > 0 ? (
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial) => (
+              <div
+                key={testimonial.id}
+                className="rounded-xl border border-border bg-background p-8 hover:border-accent transition-all duration-300 hover:shadow-lg"
+              >
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    <Star key={i} size={18} className="fill-accent text-accent" />
+                  ))}
+                </div>
 
-              <p className="text-muted-foreground mb-6 leading-relaxed">"{testimonial.content}"</p>
+                <p className="text-muted-foreground mb-6 leading-relaxed">"{testimonial.content}"</p>
 
-              <div className="flex items-center gap-3 pt-6 border-t border-border">
-                <img
-                  src={testimonial.image || "/placeholder.svg"}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                <div>
-                  <p className="font-bold text-foreground">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                <div className="flex items-center gap-3 pt-6 border-t border-border">
+                  <img
+                    src={testimonial.image_url || "/placeholder.svg"}
+                    alt={testimonial.author_name}
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                  <div>
+                    <p className="font-bold text-foreground">{testimonial.author_name}</p>
+                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center text-muted-foreground">No testimonials available yet</div>
+        )}
       </div>
     </section>
   )

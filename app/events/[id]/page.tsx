@@ -3,8 +3,9 @@
 import { useState, useEffect, use } from "react";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
-import { Play, Clock, Radio, Share2 } from "lucide-react";
+import { Play, Clock, Radio, Share2, Tickets } from "lucide-react";
 import Link from "next/link";
+import { formatDate } from "@/lib/utils";
 
 const showsData = [
   {
@@ -75,29 +76,30 @@ interface Show {
   created_at: string;
 }
 export default function ShowDetail({ params }: { params: any }) {
-  const [shows, setShows] = useState<Show[]>([]);
+  const [events, setEvents] = useState<any[]>([]);
   const [id, setId] = useState<any>();
-  const show = shows?.find((s) => s.id === Number.parseInt(id));
+  const event = events?.find((s) => s.id === Number.parseInt(id));
 
   useEffect(() => {
-    fetchShows();
+    fetchEvents();
   }, []);
 
-  const fetchShows = async () => {
+  const fetchEvents = async () => {
     const { id } = await params;
     setId(id);
     try {
-      const response = await fetch("/api/shows");
+      const response = await fetch("/api/events");
       if (response.ok) {
         const data = await response.json();
-        setShows(data);
+        setEvents(data);
       }
     } catch (error) {
       console.error("Failed to fetch shows:", error);
     } finally {
     }
   };
-  if (!show) {
+
+  if (!event) {
     return (
       <div className="min-h-screen bg-background">
         <Navigation />
@@ -128,8 +130,8 @@ export default function ShowDetail({ params }: { params: any }) {
           {/* Hero Image */}
           <div className="rounded-xl overflow-hidden mb-8 h-96">
             <img
-              src={show.image_url || "/placeholder.svg"}
-              alt={show.title}
+              src={event.image_url || "/placeholder.svg"}
+              alt={event.title}
               className="w-full h-full object-cover"
             />
           </div>
@@ -139,13 +141,12 @@ export default function ShowDetail({ params }: { params: any }) {
             {/* Main Content */}
             <div className="lg:col-span-2">
               <h1 className="text-5xl font-bold text-foreground mb-2 text-balance">
-                {show.title}
+                {event.title}
               </h1>
-              <p className="text-lg text-accent mb-6">{show.genre}</p>
 
               <div className="prose prose-invert max-w-none mb-12">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  {show.description}
+                  {event.description}
                 </p>
               </div>
 
@@ -156,21 +157,23 @@ export default function ShowDetail({ params }: { params: any }) {
                     <Clock className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">
-                        Schedule
+                        Date
                       </h3>
-                      <p className="text-muted-foreground">{show.schedule}</p>
+                      <p className="text-muted-foreground">
+                        {formatDate(new Date(String(event.date)))}
+                      </p>
                     </div>
                   </div>
                 </div>
 
                 <div className="bg-card border border-border rounded-lg p-6">
                   <div className="flex items-start gap-3">
-                    <Radio className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
+                    <Tickets className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">
-                        Daily Listeners
+                        Tickets Available
                       </h3>
-                      <p className="text-muted-foreground">150K+ daily</p>
+                      <p className="text-muted-foreground">300</p>
                     </div>
                   </div>
                 </div>
@@ -181,29 +184,26 @@ export default function ShowDetail({ params }: { params: any }) {
             <div className="lg:col-span-1">
               <div className="bg-card border border-border rounded-xl p-6 sticky top-24">
                 <h2 className="text-2xl font-bold text-foreground mb-4">
-                  Host Information
+                  Event Information
                 </h2>
                 <div className="mb-6">
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Hosted by
-                  </p>
+                  <p className="text-sm text-muted-foreground mb-2">Location</p>
                   <p className="text-xl font-bold text-foreground">
-                    {show.host}
+                    {event.location}
                   </p>
                 </div>
 
                 <div className="mb-8">
-                  <p className="text-sm text-muted-foreground mb-2">Air Time</p>
+                  <p className="text-sm text-muted-foreground mb-2">Date</p>
                   <p className="font-semibold text-foreground flex items-center gap-2">
                     <Clock size={16} />
-                    {show.schedule}
+                    {formatDate(new Date(String(event.date)))}
                   </p>
                 </div>
 
                 <div className="space-y-3">
                   <button className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity">
-                    <Play size={18} />
-                    Listen Now
+                    Book Now
                   </button>
                   <button className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
                     <Share2 size={18} />
@@ -213,10 +213,10 @@ export default function ShowDetail({ params }: { params: any }) {
 
                 <div className="mt-6 pt-6 border-t border-border">
                   <Link
-                    href="/shows"
+                    href="/events"
                     className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium"
                   >
-                    ← Back to Shows
+                    ← Back to Events
                   </Link>
                 </div>
               </div>

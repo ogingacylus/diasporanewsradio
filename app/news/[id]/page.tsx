@@ -1,15 +1,18 @@
-"use client"
+"use client";
 
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { Calendar, Share2, ArrowLeft } from "lucide-react"
-import Link from "next/link"
+import { useEffect, useState } from "react";
+import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
+import { Calendar, Share2, ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { formatDate } from "@/lib/utils";
 
 const newsData = [
   {
     id: 1,
     title: "WAVE Announces New International Partnership",
-    excerpt: "Expanding our reach to 50+ countries with premium streaming capabilities.",
+    excerpt:
+      "Expanding our reach to 50+ countries with premium streaming capabilities.",
     date: "Nov 8, 2025",
     category: "Announcement",
     image: "/radio-station-partnership-announcement.jpg",
@@ -34,7 +37,8 @@ The rollout will begin in December 2025, with phased implementation across all r
   {
     id: 2,
     title: "Exclusive Interview: Grammy-Winning Artist Sits Down",
-    excerpt: "Hear behind-the-scenes stories and upcoming projects from this week's featured guest.",
+    excerpt:
+      "Hear behind-the-scenes stories and upcoming projects from this week's featured guest.",
     date: "Nov 5, 2025",
     category: "Interview",
     image: "/music-interview-broadcast.jpg",
@@ -55,7 +59,8 @@ Listeners can also access the full interview via our mobile app and podcast plat
   {
     id: 3,
     title: "New Mobile App Launch with Enhanced Features",
-    excerpt: "Download our updated app with offline listening and personalized recommendations.",
+    excerpt:
+      "Download our updated app with offline listening and personalized recommendations.",
     date: "Nov 1, 2025",
     category: "Product Update",
     image: "/mobile-app-interface.jpg",
@@ -84,18 +89,43 @@ Users can upgrade for free by visiting their app store. Premium subscribers get 
 Download WAVE Radio now and discover why thousands of listeners trust us for their daily dose of quality audio entertainment.`,
     author: "Tech Team",
   },
-]
+];
 
 export default function NewsDetail({ params }: { params: { id: string } }) {
-  const article = newsData.find((n) => n.id === Number.parseInt(params.id))
+  const [news, setNews] = useState<any[]>([]);
+  const [id, setId] = useState<any>();
+  const article = news.find((n) => n.id === Number.parseInt(id));
+
+  useEffect(() => {
+    fetchNews();
+  }, [id]);
+
+  const fetchNews = async () => {
+    const { id } = await params;
+    setId(id);
+    try {
+      const response = await fetch("/api/admin/news");
+      if (response.ok) {
+        const data = await response.json();
+        setNews(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch news:", error);
+    } finally {
+    }
+  };
 
   if (!article) {
     return (
       <div className="min-h-screen bg-background">
         <Navigation />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Article Not Found</h1>
-          <p className="text-muted-foreground mb-8">The article you're looking for doesn't exist.</p>
+          <h1 className="text-4xl font-bold text-foreground mb-4">
+            Article Not Found
+          </h1>
+          <p className="text-muted-foreground mb-8">
+            The article you're looking for doesn't exist.
+          </p>
           <Link
             href="/news"
             className="inline-block px-6 py-2 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
@@ -105,7 +135,7 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
         </div>
         <Footer />
       </div>
-    )
+    );
   }
 
   return (
@@ -129,62 +159,86 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
               </span>
               <div className="flex items-center gap-1 text-sm text-muted-foreground">
                 <Calendar size={16} />
-                {article.date}
+                {formatDate(article.date)}
               </div>
             </div>
-            <h1 className="text-5xl font-bold text-foreground mb-4 text-balance">{article.title}</h1>
-            <p className="text-xl text-muted-foreground mb-6">{article.excerpt}</p>
-            <p className="text-sm text-muted-foreground">By {article.author}</p>
+            <h1 className="text-5xl font-bold text-foreground mb-4 text-balance">
+              {article.title}
+            </h1>
+            {/* <p className="text-xl text-muted-foreground mb-6">
+              {article.description}
+            </p> */}
+            <p className="text-sm text-muted-foreground">By Jane Doe</p>
           </div>
 
           {/* Featured Image */}
           <div className="rounded-xl overflow-hidden mb-12 h-96">
-            <img src={article.image || "/placeholder.svg"} alt={article.title} className="w-full h-full object-cover" />
+            <img
+              src={article.image_url || "/placeholder.svg"}
+              alt={article.title}
+              className="w-full h-full object-cover"
+            />
           </div>
 
           {/* Article Content */}
           <div className="prose prose-invert max-w-none mb-12">
-            {article.content.split("\n\n").map((paragraph, index) => {
-              if (paragraph.startsWith("**")) {
-                const lines = paragraph.split("\n")
+            {article.description
+              .split("\n\n")
+              .map((paragraph: any, index: any) => {
+                if (paragraph.startsWith("**")) {
+                  const lines = paragraph?.split("\n");
+                  return (
+                    <div key={index} className="mb-6">
+                      {lines.map((line: any, lineIndex: any) => {
+                        if (line.startsWith("**") && line.endsWith("**")) {
+                          return (
+                            <h3
+                              key={lineIndex}
+                              className="text-lg font-bold text-foreground mt-4 mb-2"
+                            >
+                              {line.replace(/\*\*/g, "")}
+                            </h3>
+                          );
+                        }
+                        if (line.startsWith("-")) {
+                          return (
+                            <li
+                              key={lineIndex}
+                              className="text-muted-foreground leading-relaxed ml-6"
+                            >
+                              {line.replace("-", "").trim()}
+                            </li>
+                          );
+                        }
+                        return (
+                          <p
+                            key={lineIndex}
+                            className="text-muted-foreground leading-relaxed"
+                          >
+                            {line}
+                          </p>
+                        );
+                      })}
+                    </div>
+                  );
+                }
                 return (
-                  <div key={index} className="mb-6">
-                    {lines.map((line, lineIndex) => {
-                      if (line.startsWith("**") && line.endsWith("**")) {
-                        return (
-                          <h3 key={lineIndex} className="text-lg font-bold text-foreground mt-4 mb-2">
-                            {line.replace(/\*\*/g, "")}
-                          </h3>
-                        )
-                      }
-                      if (line.startsWith("-")) {
-                        return (
-                          <li key={lineIndex} className="text-muted-foreground leading-relaxed ml-6">
-                            {line.replace("-", "").trim()}
-                          </li>
-                        )
-                      }
-                      return (
-                        <p key={lineIndex} className="text-muted-foreground leading-relaxed">
-                          {line}
-                        </p>
-                      )
-                    })}
-                  </div>
-                )
-              }
-              return (
-                <p key={index} className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  {paragraph}
-                </p>
-              )
-            })}
+                  <p
+                    key={index}
+                    className="text-lg text-muted-foreground leading-relaxed mb-6"
+                  >
+                    {paragraph}
+                  </p>
+                );
+              })}
           </div>
 
           {/* Share Section */}
           <div className="border-t border-border pt-8">
             <div className="flex items-center justify-between">
-              <p className="text-foreground font-semibold">Share this article</p>
+              <p className="text-foreground font-semibold">
+                Share this article
+              </p>
               <button className="flex items-center gap-2 px-6 py-2 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
                 <Share2 size={18} />
                 Share
@@ -195,5 +249,5 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
       </div>
       <Footer />
     </div>
-  )
+  );
 }

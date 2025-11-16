@@ -1,6 +1,14 @@
-"use client"
+"use client";
 
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+} from "lucide-react";
 
 export function Footer() {
   return (
@@ -11,11 +19,13 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center">
-                <span className="text-sm font-bold">W</span>
+                <span className="text-sm font-bold">D</span>
               </div>
-              <span className="text-xl font-bold">WAVE</span>
+              <span className="text-lg font-bold">DIASPORA NEWS RADIO</span>
             </div>
-            <p className="text-sm opacity-80 mb-4">Premium audio content for the modern listener.</p>
+            <p className="text-sm opacity-80 mb-4">
+              Premium audio content for the modern listener.
+            </p>
           </div>
 
           {/* Quick Links */}
@@ -28,7 +38,10 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#shows" className="hover:text-accent transition-colors">
+                <a
+                  href="#shows"
+                  className="hover:text-accent transition-colors"
+                >
                   Shows
                 </a>
               </li>
@@ -38,7 +51,18 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-accent transition-colors">
+                <a
+                  href="#contact"
+                  className="hover:text-accent transition-colors"
+                >
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  className="hover:text-accent transition-colors"
+                >
                   About
                 </a>
               </li>
@@ -51,13 +75,19 @@ export function Footer() {
             <ul className="space-y-3 text-sm opacity-80">
               <li className="flex items-center gap-2">
                 <Mail size={16} />
-                <a href="mailto:hello@wave.radio" className="hover:text-accent transition-colors">
-                  hello@wave.radio
+                <a
+                  href="mailto:hello@wave.radio"
+                  className="hover:text-accent transition-colors"
+                >
+                  hello@diasporanews.radio
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={16} />
-                <a href="tel:+1234567890" className="hover:text-accent transition-colors">
+                <a
+                  href="tel:+1234567890"
+                  className="hover:text-accent transition-colors"
+                >
                   +1 (234) 567-890
                 </a>
               </li>
@@ -78,7 +108,7 @@ export function Footer() {
                 { icon: Instagram, href: "#" },
                 { icon: Linkedin, href: "#" },
               ].map((social, idx) => {
-                const Icon = social.icon
+                const Icon = social.icon;
                 return (
                   <a
                     key={idx}
@@ -87,7 +117,7 @@ export function Footer() {
                   >
                     <Icon size={18} />
                   </a>
-                )
+                );
               })}
             </div>
           </div>
@@ -96,7 +126,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="border-t border-primary-foreground/10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm opacity-80">
-            <p>&copy; 2025 WAVE Radio. All rights reserved.</p>
+            <p>&copy; 2025 Diaspora News Radio. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <a href="#" className="hover:text-accent transition-colors">
                 Privacy Policy
@@ -112,5 +142,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

@@ -41,6 +41,16 @@ export async function DELETE(
     if (type === "testimonials") {
       await sql`UPDATE testimonials SET image_url=${null} WHERE id=${itemId}`;
     }
+    if (type === "stories") {
+      await sql`UPDATE stories SET image_url=${null} WHERE id=${itemId}`;
+    }
+
+    if (type === "media") {
+      await sql`UPDATE media SET image_url=${null} WHERE id=${itemId}`;
+    }
+    if (type === "marketing") {
+      await sql`UPDATE marketing SET image_url=${null} WHERE id=${itemId}`;
+    }
     NextResponse.json({ message: `deleted.` });
 
     return NextResponse.json({ success: true });

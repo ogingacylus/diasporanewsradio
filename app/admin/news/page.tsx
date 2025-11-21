@@ -97,6 +97,7 @@ export default function AdminNewsPage() {
       });
       if (response.ok) {
         fetchNews();
+        setInitialData(false);
       }
     } catch (error) {
       console.error("Failed to delete news:", error);

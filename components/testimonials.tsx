@@ -44,11 +44,11 @@ export function Testimonials() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
-            What Our Listeners Say
+            Your Feedback
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Join millions of satisfied listeners who trust Diaspora News Radio
-            for quality audio content
+            Join satisfied listeners/followers and contributors who trust
+            Diaspora News Radio for quality diaspora content.
           </p>
         </div>
 

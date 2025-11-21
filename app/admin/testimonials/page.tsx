@@ -117,6 +117,7 @@ export default function AdminTestimonialsPage() {
       });
       if (response.ok) {
         fetchTestimonials();
+        setInitialData(false);
       }
     } catch (error) {
       console.error("Failed to delete testimonial:", error);

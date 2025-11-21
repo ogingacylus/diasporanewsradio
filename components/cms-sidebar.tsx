@@ -13,6 +13,12 @@ import {
   MessageSquare,
   Menu,
   X,
+  Newspaper,
+  Lightbulb,
+  Camera,
+  Megaphone,
+  MessageSquareDot,
+  MessageCircleMore,
 } from "lucide-react";
 
 export function CMSSidebar() {
@@ -31,6 +37,20 @@ export function CMSSidebar() {
     { label: "Shows", href: "/admin/shows", icon: Radio },
     { label: "Events", href: "/admin/events", icon: Calendar },
     { label: "Testimonials", href: "/admin/testimonials", icon: MessageSquare },
+    { label: "Stories", href: "/admin/stories", icon: Newspaper },
+    { label: "Advice", href: "/admin/advice", icon: Lightbulb },
+    { label: "Media Hub", href: "/admin/media", icon: Camera },
+    { label: "Marketing", href: "/admin/marketing", icon: Megaphone },
+    {
+      label: "Visitors Messages",
+      href: "/admin/visitors",
+      icon: MessageSquareDot,
+    },
+    {
+      label: "Advertisers Messages",
+      href: "/admin/advertisement",
+      icon: MessageCircleMore,
+    },
   ];
 
   return (

@@ -44,14 +44,14 @@ export function Hero() {
 
           {/* Right Visual */}
           <LiveStream />
-          {/* <div className="relative h-96 hidden md:flex items-center justify-center">
+          <div className="relative h-96 hidden md:flex items-center justify-center">
             <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/10 to-transparent rounded-2xl blur-3xl"></div>
             <div className="relative w-64 h-64 rounded-2xl border-2 border-accent/30 bg-card flex items-center justify-center">
               <div className="w-32 h-32 rounded-full border-4 border-accent/50 flex items-center justify-center animate-pulse">
                 <Volume2 className="w-16 h-16 text-accent" />
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </section>

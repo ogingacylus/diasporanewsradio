@@ -92,6 +92,7 @@ export default function AdminEventsPage() {
       });
       if (response.ok) {
         fetchEvents();
+        setInitialData(false);
       }
     } catch (error) {
       console.error("Failed to delete:", error);

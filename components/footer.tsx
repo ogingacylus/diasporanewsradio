@@ -79,7 +79,7 @@ export function Footer() {
                   href="mailto:hello@wave.radio"
                   className="hover:text-accent transition-colors"
                 >
-                  hello@diasporanews.radio
+                  Nzoiatex@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
@@ -88,7 +88,7 @@ export function Footer() {
                   href="tel:+1234567890"
                   className="hover:text-accent transition-colors"
                 >
-                  +1 (234) 567-890
+                  +1 (682) 777-0791
                 </a>
               </li>
               <li className="flex items-center gap-2">
@@ -103,10 +103,11 @@ export function Footer() {
             <h3 className="font-bold mb-4">Follow Us</h3>
             <div className="flex gap-3">
               {[
-                { icon: Facebook, href: "#" },
-                { icon: Twitter, href: "#" },
-                { icon: Instagram, href: "#" },
-                { icon: Linkedin, href: "#" },
+                {
+                  icon: Facebook,
+                  href: "https://www.facebook.com/share/1VraFQoBFN/?mibextid=wwXIfr",
+                },
+                { icon: Twitter, href: "https://x.com/diasporanradio?s=11" },
               ].map((social, idx) => {
                 const Icon = social.icon;
                 return (
@@ -119,6 +120,12 @@ export function Footer() {
                   </a>
                 );
               })}
+              <a
+                href="https://www.tiktok.com/@diasporanr"
+                className="w-10 h-10 rounded-lg bg-primary-foreground/10 hover:bg-accent text-primary-foreground flex items-center justify-center transition-colors"
+              >
+                <TickTockIcon className="h-5 w-5 text-green-500" />
+              </a>
             </div>
           </div>
         </div>
@@ -142,5 +149,26 @@ export function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function TickTockIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      shapeRendering="geometricPrecision"
+      textRendering="geometricPrecision"
+      imageRendering="optimizeQuality"
+      fillRule="evenodd"
+      clipRule="evenodd"
+      viewBox="0 0 455 512.098"
+    >
+      <path
+        fill="#ffff"
+        fillRule="nonzero"
+        d="M321.331.011h-81.882v347.887c0 45.59-32.751 74.918-72.582 74.918-39.832 0-75.238-29.327-75.238-74.918 0-52.673 41.165-80.485 96.044-74.727v-88.153c-7.966-1.333-15.932-1.77-22.576-1.77C75.249 183.248 0 255.393 0 344.794c0 94.722 74.353 167.304 165.534 167.304 80.112 0 165.097-58.868 165.097-169.96V161.109c35.406 35.406 78.341 46.476 124.369 46.476V126.14C398.35 122.151 335.494 84.975 321.331 0v.011z"
+      />
+    </svg>
   );
 }

@@ -11,6 +11,7 @@ export function Contact() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -19,14 +20,26 @@ export function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you can add actual form submission logic
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 3000);
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/visitors", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        setSubmitted(true);
+        setIsSubmitting(false);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setIsSubmitting(false);
+      }
+    } catch (error) {
+      console.error("Failed to create event:", error);
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -52,14 +65,14 @@ export function Contact() {
             {
               icon: Mail,
               title: "Email",
-              value: "hello@diasporanews.radio",
-              link: "mailto:hello@wave.radio",
+              value: "Nzoiatex@gmail.com",
+              link: "mailto:Nzoiatex@gmail.com",
             },
             {
               icon: Phone,
               title: "Phone",
-              value: "+1 (234) 567-890",
-              link: "tel:+1234567890",
+              value: "+1 (682) 777-0791",
+              link: "tel:+16827770791",
             },
             {
               icon: MapPin,
@@ -157,6 +170,7 @@ export function Contact() {
               <button
                 type="submit"
                 className="w-full bg-accent text-accent-foreground font-bold py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 group"
+                disabled={isSubmitting}
               >
                 <Send size={18} />
                 Send Message

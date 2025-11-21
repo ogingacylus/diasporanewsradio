@@ -85,6 +85,7 @@ export default function AdminShowsPage() {
       });
       if (response.ok) {
         fetchShows();
+        setInitialData(false);
       }
     } catch (error) {
       console.error("Failed to delete:", error);

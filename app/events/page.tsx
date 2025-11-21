@@ -6,45 +6,6 @@ import { Footer } from "@/components/footer";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 
-const allShows = [
-  {
-    id: 1,
-    name: "Morning Hits Mix",
-    host: "Alex Rivera",
-    time: "8:00 AM - 12:00 PM",
-    genre: "Pop & Hits",
-    image: "/morning-radio-show.jpg",
-    description: "Start your day with the best pop hits and feel-good music.",
-  },
-  {
-    id: 2,
-    name: "The Late Night Sessions",
-    host: "Jordan Blake",
-    time: "10:00 PM - 2:00 AM",
-    genre: "Electronic & Jazz",
-    image: "/night-time-radio-show.jpg",
-    description: "Unwind with smooth electronic and jazz selections.",
-  },
-  {
-    id: 3,
-    name: "Indie Spotlight",
-    host: "Sam Chen",
-    time: "2:00 PM - 6:00 PM",
-    genre: "Indie & Alternative",
-    image: "/indie-music-radio.jpg",
-    description: "Discover emerging independent artists and alternative music.",
-  },
-  {
-    id: 4,
-    name: "Urban Beats Radio",
-    host: "Marcus Davis",
-    time: "6:00 PM - 10:00 PM",
-    genre: "Hip Hop & R&B",
-    image: "/hip-hop-radio-show.jpg",
-    description: "Experience the latest hip-hop and R&B with Marcus Davis.",
-  },
-];
-
 export default function AllShows() {
   const [events, setEvents] = useState<any[]>([]);
 

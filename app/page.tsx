@@ -13,8 +13,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-indigo-700">
       <Navigation />
-      <Hero />
       <EventsCarousel />
+      {/* <Hero /> */}
+
       <Shows />
       <News />
       <About />

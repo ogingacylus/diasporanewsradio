@@ -167,6 +167,23 @@ export async function POST(request: NextRequest) {
       )} WHERE id=${Number(itemId)}`;
     }
 
+    if (type === "stories") {
+      await sql`UPDATE stories SET image_url=${String(
+        uploadResult.gcsUri
+      )} WHERE id=${Number(itemId)}`;
+    }
+
+    if (type === "media") {
+      await sql`UPDATE media SET image_url=${String(
+        uploadResult.gcsUri
+      )} WHERE id=${Number(itemId)}`;
+    }
+
+    if (type === "marketing") {
+      await sql`UPDATE marketing SET image_url=${String(
+        uploadResult.gcsUri
+      )} WHERE id=${Number(itemId)}`;
+    }
     // Return success response
     return NextResponse.json({
       success: true,

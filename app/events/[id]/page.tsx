@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer";
 import { Play, Clock, Radio, Share2, Tickets } from "lucide-react";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
+import { Loader } from "@/components/loader";
 
 const showsData = [
   {
@@ -76,6 +77,7 @@ interface Show {
   created_at: string;
 }
 export default function ShowDetail({ params }: { params: any }) {
+  const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState<any[]>([]);
   const [id, setId] = useState<any>();
   const event = events?.find((s) => s.id === Number.parseInt(id));
@@ -96,13 +98,16 @@ export default function ShowDetail({ params }: { params: any }) {
     } catch (error) {
       console.error("Failed to fetch shows:", error);
     } finally {
+      setLoading(false);
     }
   };
 
-  if (!event) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navigation />
+  return (
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      {loading ? (
+        <Loader />
+      ) : !event ? (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
           <h1 className="text-4xl font-bold text-foreground mb-4">
             Show Not Found
@@ -117,113 +122,109 @@ export default function ShowDetail({ params }: { params: any }) {
             Return Home
           </Link>
         </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <div className="pt-24 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Hero Image */}
-          <div className="rounded-xl overflow-hidden mb-8 h-96">
-            <img
-              src={event.image_url || "/placeholder.svg"}
-              alt={event.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Content Grid */}
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2">
-              <h1 className="text-5xl font-bold text-foreground mb-2 text-balance">
-                {event.title}
-              </h1>
-
-              <div className="prose prose-invert max-w-none mb-12">
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {event.description}
-                </p>
-              </div>
-
-              {/* Show Details */}
-              <div className="grid md:grid-cols-2 gap-6 mb-12">
-                <div className="bg-card border border-border rounded-lg p-6">
-                  <div className="flex items-start gap-3">
-                    <Clock className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">
-                        Date
-                      </h3>
-                      <p className="text-muted-foreground">
-                        {formatDate(new Date(String(event.date)))}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-card border border-border rounded-lg p-6">
-                  <div className="flex items-start gap-3">
-                    <Tickets className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">
-                        Tickets Available
-                      </h3>
-                      <p className="text-muted-foreground">300</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      ) : (
+        <div className="pt-24 pb-20 mt-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Hero Image */}
+            <div className="rounded-xl overflow-hidden mb-8 h-96">
+              <img
+                src={event.image_url || "/placeholder.svg"}
+                alt={event.title}
+                className="w-full h-full object-cover"
+              />
             </div>
 
-            {/* Sidebar */}
-            <div className="lg:col-span-1">
-              <div className="bg-card border border-border rounded-xl p-6 sticky top-24">
-                <h2 className="text-2xl font-bold text-foreground mb-4">
-                  Event Information
-                </h2>
-                <div className="mb-6">
-                  <p className="text-sm text-muted-foreground mb-2">Location</p>
-                  <p className="text-xl font-bold text-foreground">
-                    {event.location}
+            {/* Content Grid */}
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Main Content */}
+              <div className="lg:col-span-2">
+                <h1 className="text-5xl font-bold text-foreground mb-2 text-balance">
+                  {event.title}
+                </h1>
+
+                <div className="prose prose-invert max-w-none mb-12">
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    {event.description}
                   </p>
                 </div>
 
-                <div className="mb-8">
-                  <p className="text-sm text-muted-foreground mb-2">Date</p>
-                  <p className="font-semibold text-foreground flex items-center gap-2">
-                    <Clock size={16} />
-                    {formatDate(new Date(String(event.date)))}
-                  </p>
-                </div>
+                {/* Show Details */}
+                <div className="grid md:grid-cols-2 gap-6 mb-12">
+                  <div className="bg-card border border-border rounded-lg p-6">
+                    <div className="flex items-start gap-3">
+                      <Clock className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
+                      <div>
+                        <h3 className="font-semibold text-foreground mb-1">
+                          Date
+                        </h3>
+                        <p className="text-muted-foreground">
+                          {formatDate(new Date(String(event.date)))}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-                <div className="space-y-3">
-                  <button className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity">
-                    Book Now
-                  </button>
-                  <button className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
-                    <Share2 size={18} />
-                    Share
-                  </button>
+                  <div className="bg-card border border-border rounded-lg p-6">
+                    <div className="flex items-start gap-3">
+                      <Tickets className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
+                      <div>
+                        <h3 className="font-semibold text-foreground mb-1">
+                          Tickets Available
+                        </h3>
+                        <p className="text-muted-foreground">300</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
 
-                <div className="mt-6 pt-6 border-t border-border">
-                  <Link
-                    href="/events"
-                    className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium"
-                  >
-                    ← Back to Events
-                  </Link>
+              {/* Sidebar */}
+              <div className="lg:col-span-1">
+                <div className="bg-card border border-border rounded-xl p-6 sticky top-24">
+                  <h2 className="text-2xl font-bold text-foreground mb-4">
+                    Event Information
+                  </h2>
+                  <div className="mb-6">
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Location
+                    </p>
+                    <p className="text-xl font-bold text-foreground">
+                      {event.location}
+                    </p>
+                  </div>
+
+                  <div className="mb-8">
+                    <p className="text-sm text-muted-foreground mb-2">Date</p>
+                    <p className="font-semibold text-foreground flex items-center gap-2">
+                      <Clock size={16} />
+                      {formatDate(new Date(String(event.date)))}
+                    </p>
+                  </div>
+
+                  <div className="space-y-3">
+                    <button className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity">
+                      Book Now
+                    </button>
+                    <button className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
+                      <Share2 size={18} />
+                      Share
+                    </button>
+                  </div>
+
+                  <div className="mt-6 pt-6 border-t border-border">
+                    <Link
+                      href="/events"
+                      className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium"
+                    >
+                      ← Back to Events
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       <Footer />
     </div>
   );

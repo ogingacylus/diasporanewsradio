@@ -90,14 +90,14 @@ export function EventsCarousel() {
 
   if (error || events.length === 0) {
     return (
-      <section className="w-full bg-card py-16">
+      <section className="w-full bg-card py-16 pt-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
               Upcoming Events
             </h2>
             <p className="mt-2 text-muted-foreground">
-              Don't miss our exciting radio events and live performances
+              Don't miss exciting diaspora events close to you
             </p>
           </div>
           <div className="text-center text-muted-foreground py-12">
@@ -111,14 +111,34 @@ export function EventsCarousel() {
   }
 
   return (
-    <section className="w-full bg-card py-16">
+    <section className="w-full bg-indigo-950 py-16 pt-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="grid md:grid-cols-1 gap-12 items-center justify-center">
+          {/* Left Content */}
+          <div className="space-y-4 mb-4">
+            <h1 className="text-2xl md:text-4xl font-bold text-foreground leading-tight text-balance flex justify-center ">
+              LISTEN TO THE WORLD
+            </h1>
+
+            {/* <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <button className="px-8 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer">
+                <Volume2 size={20} />
+                Listen Live Now
+              </button>
+              <Link href="/#about">
+                <button className="px-8 py-3 border-2 border-accent text-accent rounded-lg font-medium hover:bg-accent/5 transition-colors cursor-pointer">
+                  Learn More
+                </button>
+              </Link>
+            </div> */}
+          </div>
+        </div>
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
             Upcoming Events
           </h2>
           <p className="mt-2 text-muted-foreground">
-            Don't miss our exciting radio events and live performances
+            Don't miss exciting diaspora events close to you.
           </p>
         </div>
 

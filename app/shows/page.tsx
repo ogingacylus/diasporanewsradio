@@ -53,7 +53,7 @@ export default function AllShows() {
 
   const fetchShows = async () => {
     try {
-      const response = await fetch("/api/admin/shows");
+      const response = await fetch("/api/shows");
       if (response.ok) {
         const data = await response.json();
         setShows(data);

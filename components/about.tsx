@@ -34,7 +34,7 @@ export function About() {
               About Diaspora News Radio
             </h2>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              Since 2015, Diaspora News Radio has been a leading voice in global
+              Diaspora News Radio has been a leading voice in global
               broadcasting, delivering exceptional content across multiple
               genres. With a network of talented hosts, producers, and
               journalists, we bring the world's best music, news, and

@@ -74,21 +74,20 @@ export function Navigation() {
       { name: "Advice and Inspiration", href: "/advice" },
       { name: "Media Hub", href: "/media" },
       { name: "Advertise", href: "/marketing" },
-      { name: "Marketing Board", href: "/advertisements" },
     ],
   };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-1">
+      <div className=" mx-2  ">
         <div className="flex justify-between items-center h-24">
           {/* Logo */}
           <Link
             href="/"
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <Image src="/diaspora-logo.png" alt="logo" height={70} width={70} />
-            <span className="text-xl font-bold text-foreground  sm:inline">
+            <Image src="/diaspora-logo.png" alt="logo" height={60} width={60} />
+            <span className="text-lg font-bold text-foreground  sm:inline ">
               Diaspora News Radio
             </span>
           </Link>
@@ -186,6 +185,12 @@ export function Navigation() {
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               Upcomming Events
+            </Link>
+            <Link
+              href="/advertisements"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Marketing
             </Link>
             {/* Resouces Dropdown */}
             <div className="relative group">
@@ -314,7 +319,19 @@ export function Navigation() {
                 </div>
               )}
             </div>
-
+            {/* Upcoming events */}
+            <Link
+              href="/events"
+              className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+            >
+              Upcoming events
+            </Link>
+            <Link
+              href="/advertisements"
+              className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+            >
+              Marketing
+            </Link>
             {/* Mobile Community Dropdown */}
             {/* <div>
               <button

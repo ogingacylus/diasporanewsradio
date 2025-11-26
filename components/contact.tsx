@@ -74,12 +74,12 @@ export function Contact() {
               value: "+1 (682) 777-0791",
               link: "tel:+16827770791",
             },
-            {
-              icon: MapPin,
-              title: "Location",
-              value: "New York, USA",
-              link: "#contact",
-            },
+            // {
+            //   icon: MapPin,
+            //   title: "Location",
+            //   value: "New York, USA",
+            //   link: "#contact",
+            // },
           ].map((item, idx) => {
             const Icon = item.icon;
             return (

@@ -91,10 +91,10 @@ export function Footer() {
                   +1 (682) 777-0791
                 </a>
               </li>
-              <li className="flex items-center gap-2">
+              {/* <li className="flex items-center gap-2">
                 <MapPin size={16} />
                 <span>New York, USA</span>
-              </li>
+              </li> */}
             </ul>
           </div>
 

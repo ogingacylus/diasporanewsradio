@@ -21,7 +21,7 @@ export default function MarketingPage() {
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             Amplify Your Brand with{" "}
-            <span className="text-accent">WAVE Radio</span>
+            <span className="text-accent">DIASPORA NEWS RADIO</span>
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
             Reach thousands of engaged listeners daily. Our diverse programming

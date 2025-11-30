@@ -1,26 +1,33 @@
 "use client";
 
-import { Award, Users, Zap } from "lucide-react";
+import {
+  AudioLines,
+  Award,
+  Building2,
+  GraduationCap,
+  Users,
+  Zap,
+} from "lucide-react";
 
 export function About() {
   const values = [
     {
-      icon: Zap,
-      title: "Innovation",
+      icon: Building2,
+      title: "Community Building",
       description:
-        "Cutting-edge technology delivering premium audio experiences to listeners worldwide.",
+        "Fostering a sense of belonging and connection among diaspora communities.",
     },
     {
-      icon: Users,
-      title: "Community",
+      icon: GraduationCap,
+      title: "Education and Empowerment",
       description:
-        "Creating meaningful connections between artists, hosts, and millions of passionate listeners.",
+        "Providing valuable resources and information to help navigate challenges abroad.",
     },
     {
-      icon: Award,
-      title: "Excellence",
+      icon: AudioLines,
+      title: "Amplifying Voices",
       description:
-        "Award-winning programming and commitment to the highest quality standards.",
+        "Showcasing the diverse perspectives and experiences of diaspora individuals.",
     },
   ];
 
@@ -34,17 +41,17 @@ export function About() {
               About Diaspora News Radio
             </h2>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              Diaspora News Radio has been a leading voice in global
-              broadcasting, delivering exceptional content across multiple
-              genres. With a network of talented hosts, producers, and
-              journalists, we bring the world's best music, news, and
-              entertainment directly to your ears.
+              Diaspora News Radio is a vital platform for amplifying the voices
+              and concerns of diaspora communities. By providing a direct line
+              of communication, we're empowering individuals to share their
+              stories, challenges, and triumphs without intermediaries. This
+              platform can indeed be a game-changer for:
             </p>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+            {/* <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               Our mission is simple: to inspire, entertain, and connect people
               through the power of audio. Whether you're commuting, working, or
               relaxing, Diaspora News Radio is your perfect companion.
-            </p>
+            </p> */}
 
             <div className="space-y-4">
               {values.map((value, idx) => {

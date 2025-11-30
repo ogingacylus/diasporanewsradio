@@ -59,7 +59,7 @@ export function Contact() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 gap-8 mb-16">
           {/* Contact Info Cards */}
           {[
             {

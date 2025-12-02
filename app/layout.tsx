@@ -8,8 +8,8 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Diasporsa News Radio",
-  description: "Created by Henry Omondi",
-  generator: "v0.app",
+  description: "Listen to the world",
+  generator: "",
   icons: {
     icon: [
       {

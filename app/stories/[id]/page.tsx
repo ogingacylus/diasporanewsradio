@@ -7,11 +7,22 @@ import { Calendar, Share2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 import { Loader } from "@/components/loader";
+import ShareButtons from "@/components/socialShare";
+import { usePathname } from "next/navigation";
 
 export default function StoriesDetail({ params }: { params: { id: string } }) {
   const [loading, setLoading] = useState(true);
   const [story, setStory] = useState<any>();
   const [id, setId] = useState<any>();
+  const pathname: any = usePathname();
+
+  const [baseUrl, setBaseUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setBaseUrl(window.location.origin);
+    }
+  }, []);
 
   useEffect(() => {
     fetchStories();
@@ -26,6 +37,7 @@ export default function StoriesDetail({ params }: { params: { id: string } }) {
         const data = await response.json();
         const story = data.find((n: any) => n.id === Number.parseInt(id));
         setStory(story);
+        setLoading(false);
       }
     } catch (error) {
       console.error("Failed to fetch stories:", error);
@@ -165,14 +177,16 @@ export default function StoriesDetail({ params }: { params: { id: string } }) {
             )}
             {/* Share Section */}
             <div className="border-t border-border pt-8">
-              <div className="flex items-center justify-between">
-                <p className="text-foreground font-semibold">
-                  Share this Story
-                </p>
-                <button className="flex items-center gap-2 px-6 py-2 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
+              <div className="w-full flex flex-col gap-4 items-center justify-center gap-2 px-6 py-3 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
+                <div className="flex items-center justify-center gap-2">
+                  {" "}
                   <Share2 size={18} />
                   Share
-                </button>
+                </div>
+                <ShareButtons
+                  title={story.title}
+                  url={`${baseUrl}${pathname}`}
+                />
               </div>
             </div>
           </div>

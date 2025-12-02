@@ -7,12 +7,23 @@ import { Calendar, Share2, ArrowLeft, Lightbulb } from "lucide-react";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 import { Loader } from "@/components/loader";
+import ShareButtons from "@/components/socialShare";
+import { usePathname } from "next/navigation";
 
 export default function AdvicesDetail({ params }: { params: { id: string } }) {
   const [advices, setAdvices] = useState<any[]>([]);
   const [id, setId] = useState<any>();
   const article = advices.find((n) => n.id === Number.parseInt(id));
   const [loading, setLoading] = useState(true);
+
+  const pathname: any = usePathname();
+  const [baseUrl, setBaseUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setBaseUrl(window.location.origin);
+    }
+  }, []);
 
   useEffect(() => {
     fetchAdvices();
@@ -82,14 +93,16 @@ export default function AdvicesDetail({ params }: { params: { id: string } }) {
               </div>
               {/* Share Section */}
               <div className="border-t border-border pt-8">
-                <div className="flex items-center justify-between">
-                  <p className="text-foreground font-semibold">
-                    Share this article
-                  </p>
-                  <button className="flex items-center gap-2 px-6 py-2 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
+                <div className="w-full flex flex-col gap-4 items-center justify-center gap-2 px-6 py-3 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
+                  <div className="flex items-center justify-center gap-2">
+                    {" "}
                     <Share2 size={18} />
                     Share
-                  </button>
+                  </div>
+                  <ShareButtons
+                    title={article.title}
+                    url={`${baseUrl}${pathname}`}
+                  />
                 </div>
               </div>
             </>

@@ -8,7 +8,6 @@ export async function GET() {
     const events = await sql`
       SELECT * FROM events WHERE published = true ORDER BY date DESC
     `;
-    console.log("[v0] Events fetched successfully:", events);
 
     return NextResponse.json(events);
   } catch (error) {

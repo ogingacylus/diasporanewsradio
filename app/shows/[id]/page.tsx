@@ -6,6 +6,8 @@ import { Footer } from "@/components/footer";
 import { Play, Clock, Radio, Share2 } from "lucide-react";
 import Link from "next/link";
 import { Loader } from "@/components/loader";
+import ShareButtons from "@/components/socialShare";
+import { usePathname } from "next/navigation";
 
 const showsData = [
   {
@@ -80,6 +82,15 @@ export default function ShowDetail({ params }: { params: any }) {
   const [shows, setShows] = useState<Show[]>([]);
   const [id, setId] = useState<any>();
   const show = shows?.find((s) => s.id === Number.parseInt(id));
+  const pathname: any = usePathname();
+
+  const [baseUrl, setBaseUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setBaseUrl(window.location.origin);
+    }
+  }, []);
 
   useEffect(() => {
     fetchShows();
@@ -205,14 +216,23 @@ export default function ShowDetail({ params }: { params: any }) {
                     <Link
                       href="https://zeno.fm/radio/diaspora-news-radio/"
                       className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <Play size={18} />
                       Listen Now
                     </Link>
-                    <button className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
-                      <Share2 size={18} />
-                      Share
-                    </button>
+                    <div className="w-full flex flex-col gap-4 items-center justify-center gap-2 px-6 py-3 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
+                      <div className="flex items-center justify-center gap-2">
+                        {" "}
+                        <Share2 size={18} />
+                        Share
+                      </div>
+                      <ShareButtons
+                        title={show.title}
+                        url={`${baseUrl}${pathname}`}
+                      />
+                    </div>
                   </div>
 
                   <div className="mt-6 pt-6 border-t border-border">

@@ -26,7 +26,7 @@ export async function PUT(
     const param = await params;
 
     const id = Number.parseInt(param.id);
-    console.log(param);
+
     const body = await request.json();
     const { author_name, role, content, rating, published } = body;
     await sql`UPDATE testimonials SET author_name=${author_name}, role=${role},

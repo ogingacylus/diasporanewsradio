@@ -229,6 +229,8 @@ export function Navigation() {
             <Link
               href="https://zeno.fm/radio/diaspora-news-radio/"
               className="px-6 py-2 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Listen Live
               <div className="w-8 h-8 rounded-full border-4 border-accent/50 flex items-center justify-center animate-pulse">
@@ -410,15 +412,17 @@ export function Navigation() {
             >
               Contact
             </Link>
-            <Link
+            <a
               href="https://zeno.fm/radio/diaspora-news-radio/"
               className="w-full mt-2 px-6 py-2 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-4 "
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Listen Live
               <div className="w-8 h-8 rounded-full border-4 border-accent/50 flex items-center justify-center animate-pulse">
                 <Volume2 className="w-6 h-6 text-white" />
               </div>
-            </Link>
+            </a>
           </div>
         )}
       </div>

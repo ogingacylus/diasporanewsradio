@@ -114,6 +114,8 @@ export function Footer() {
                   <a
                     key={idx}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg bg-primary-foreground/10 hover:bg-accent text-primary-foreground flex items-center justify-center transition-colors"
                   >
                     <Icon size={18} />
@@ -122,6 +124,8 @@ export function Footer() {
               })}
               <a
                 href="https://www.tiktok.com/@diasporanr"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-primary-foreground/10 hover:bg-accent text-primary-foreground flex items-center justify-center transition-colors"
               >
                 <TickTockIcon className="h-5 w-5 text-green-500" />
@@ -140,9 +144,6 @@ export function Footer() {
               </a>
               <a href="#" className="hover:text-accent transition-colors">
                 Terms of Service
-              </a>
-              <a href="#" className="hover:text-accent transition-colors">
-                Cookie Settings
               </a>
             </div>
           </div>

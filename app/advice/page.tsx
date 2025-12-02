@@ -26,7 +26,7 @@ export default function AdvicesPage() {
     } finally {
     }
   };
-  console.log(advices);
+
   if (advices.length === 0) {
     return (
       <div className="min-h-screen bg-background">

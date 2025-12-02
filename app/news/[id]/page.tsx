@@ -7,12 +7,24 @@ import { Calendar, Share2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 import { Loader } from "@/components/loader";
+import ShareButtons from "@/components/socialShare";
+import { usePathname } from "next/navigation";
 
 export default function NewsDetail({ params }: { params: { id: string } }) {
   const [loading, setLoading] = useState(true);
   const [news, setNews] = useState<any[]>([]);
   const [id, setId] = useState<any>();
   const article = news.find((n) => n.id === Number.parseInt(id));
+
+  const pathname: any = usePathname();
+
+  const [baseUrl, setBaseUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setBaseUrl(window.location.origin);
+    }
+  }, []);
 
   useEffect(() => {
     fetchNews();
@@ -150,13 +162,17 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
             {/* Share Section */}
             <div className="border-t border-border pt-8">
               <div className="flex items-center justify-between">
-                <p className="text-foreground font-semibold">
-                  Share this article
-                </p>
-                <button className="flex items-center gap-2 px-6 py-2 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
-                  <Share2 size={18} />
-                  Share
-                </button>
+                <div className="w-full flex flex-col gap-4 items-center justify-center gap-2 px-6 py-3 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
+                  <div className="flex items-center justify-center gap-2">
+                    {" "}
+                    <Share2 size={18} />
+                    Share
+                  </div>
+                  <ShareButtons
+                    title={article.title}
+                    url={`${baseUrl}${pathname}`}
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     const result = await sql`
       INSERT INTO news (title, author, slug, description, category, published, 
-      published_at) VALUES (${title}, ${author}, ${slug}, ${description},${category}, ${published}, ${timeNow} )
+      published_at, created_at) VALUES (${title}, ${author}, ${slug}, ${description},${category}, ${published}, ${timeNow} ,${timeNow} )
     `;
 
     return NextResponse.json({ success: true }, { status: 201 });

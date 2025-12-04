@@ -12,32 +12,9 @@ interface Testimonial {
   image_url?: string;
 }
 
-export function Testimonials() {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [loading, setLoading] = useState(true);
+export function Testimonials({ testimonials_ }: { testimonials_: any }) {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const response = await fetch("/api/testimonials");
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`);
-        }
-        const data = await response.json();
-        setTestimonials(Array.isArray(data) ? data : []);
-        setError(null);
-      } catch (error) {
-        console.error("[v0] Failed to fetch testimonials:", error);
-        setError("Unable to load testimonials");
-        setTestimonials([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTestimonials();
-  }, []);
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card border-y border-border">
@@ -63,9 +40,9 @@ export function Testimonials() {
               Initialize the database to see testimonials.
             </p>
           </div>
-        ) : testimonials.length > 0 ? (
+        ) : testimonials_.length > 0 ? (
           <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial) => (
+            {testimonials_.map((testimonial: any) => (
               <div
                 key={testimonial.id}
                 className="rounded-xl border border-border bg-background p-8 hover:border-accent transition-all duration-300 hover:shadow-lg"

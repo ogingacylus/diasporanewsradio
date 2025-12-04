@@ -14,37 +14,16 @@ interface NewsItem {
   created_at: string;
 }
 
-export function News() {
-  const [news, setNews] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
+export function News({ news_, color }: { news_: any; color: any }) {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const response = await fetch("/api/news");
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`);
-        }
-        const data = await response.json();
-        setNews(Array.isArray(data) ? data.slice(0, 3) : []);
-        setError(null);
-      } catch (error) {
-        console.error("[v0] Failed to fetch news:", error);
-        setError("Unable to load news");
-        setNews([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchNews();
-  }, []);
 
   return (
     <section
       id="news"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-card border-y border-border"
+      className={`py-20 px-4 sm:px-6 lg:px-8 ${
+        color === "light" ? "bg-card" : "bg-background"
+      } border-y border-border`}
     >
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
@@ -68,9 +47,9 @@ export function News() {
               Please initialize the database to see content.
             </p>
           </div>
-        ) : news.length > 0 ? (
+        ) : news_?.length > 0 ? (
           <div className="grid md:grid-cols-3 gap-8">
-            {news.map((article) => (
+            {news_.map((article: any) => (
               <Link href={`/news/${article.id}`} key={article.id}>
                 <article className="group rounded-xl overflow-hidden border border-border hover:border-accent transition-all duration-300 hover:shadow-lg cursor-pointer h-full flex flex-col">
                   <div className="relative overflow-hidden h-48 bg-background">

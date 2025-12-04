@@ -87,6 +87,7 @@ export default function AdminNewsPage() {
   };
 
   const handleDelete = async (id: number, item: any) => {
+    console.log("This id", id);
     if (item?.image_url) {
       alert("Delete news picture first!");
       return;

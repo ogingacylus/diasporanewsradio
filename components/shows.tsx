@@ -14,35 +14,12 @@ interface Show {
   listeners_count: number;
 }
 
-export function Shows() {
-  const [shows, setShows] = useState<Show[]>([]);
-  const [loading, setLoading] = useState(true);
+export function Shows({ shows_ }: { shows_: any }) {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchShows = async () => {
-      try {
-        const response = await fetch("/api/shows");
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`);
-        }
-        const data = await response.json();
-        setShows(Array.isArray(data) ? data : []);
-        setError(null);
-      } catch (error) {
-        console.error("[v0] Failed to fetch shows:", error);
-        setError("Unable to load shows");
-        setShows([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchShows();
-  }, []);
-
   return (
-    <section id="shows" className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
+    <section id="shows_" className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
@@ -56,18 +33,18 @@ export function Shows() {
 
         {loading ? (
           <div className="text-center text-muted-foreground">
-            Loading shows...
+            Loading shows_...
           </div>
         ) : error ? (
           <div className="text-center text-muted-foreground">
             <p>{error}</p>
             <p className="text-sm mt-2">
-              Initialize the database to see shows.
+              Initialize the database to see shows_.
             </p>
           </div>
-        ) : shows.length > 0 ? (
+        ) : shows_.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {shows.map((show) => (
+            {shows_.map((show: any) => (
               <Link href={`/shows/${show.id}`} key={show.id}>
                 <div className="group rounded-xl overflow-hidden border border-border hover:border-accent transition-all duration-300 hover:shadow-lg cursor-pointer h-full">
                   <div className="relative overflow-hidden h-40 bg-card">
@@ -98,7 +75,7 @@ export function Shows() {
             No shows available yet
           </div>
         )}
-        {shows.length > 0 && (
+        {shows_.length > 0 && (
           <div className="text-center mt-12">
             <Link href="/shows">
               <button className="px-8 py-3 border-2 border-accent text-accent rounded-lg font-medium hover:bg-accent/5 transition-colors cursor-pointer">

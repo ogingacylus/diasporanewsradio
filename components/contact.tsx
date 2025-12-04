@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { WhatsappIcon } from "next-share";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { faPhone, faMailBulk } from "@fortawesome/free-solid-svg-icons";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -45,7 +49,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="bg-card text-card-foreground py-20 border-t border-border"
+      className="bg-background text-card-foreground py-20 border-t border-border"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -59,37 +63,43 @@ export function Contact() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
           {/* Contact Info Cards */}
           {[
             {
-              icon: Mail,
+              icon: faMailBulk,
               title: "Email",
-              value: "Nzoiatex@gmail.com",
-              link: "mailto:Nzoiatex@gmail.com",
+              value: "Diasporanewsradio@gmail.com",
+              link: "mailto:Diasporanewsradio@gmail.com",
             },
             {
-              icon: Phone,
+              icon: faPhone,
               title: "Phone",
-              value: "+1 (682) 777-0791",
+              value: "+1 (682) 777-0791  or  +1 214 699 7164",
               link: "tel:+16827770791",
             },
-            // {
-            //   icon: MapPin,
-            //   title: "Location",
-            //   value: "New York, USA",
-            //   link: "#contact",
-            // },
+            {
+              icon: faWhatsapp,
+              title: "Whatsapp",
+              value: "+1 (817) 874-2847",
+              link: "https://wa.me/18178742847",
+            },
           ].map((item, idx) => {
             const Icon = item.icon;
             return (
               <a
                 key={idx}
                 href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-primary p-8 rounded-lg border border-border hover:border-accent transition-colors group cursor-pointer"
               >
                 <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/30 transition-colors">
-                  <Icon className="text-accent" size={24} />
+                  <FontAwesomeIcon
+                    icon={item.icon}
+                    className="text-accent"
+                    size="2x"
+                  />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground group-hover:text-accent transition-colors">

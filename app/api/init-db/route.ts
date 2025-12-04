@@ -26,6 +26,7 @@ export async function seedDatabase() {
       CREATE TABLE IF NOT EXISTS news (
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
+        author VARCHAR(255),
         slug VARCHAR(255) UNIQUE,
         description TEXT,
         image_url VARCHAR(500),

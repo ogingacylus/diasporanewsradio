@@ -42,6 +42,7 @@ export function NewsForm({
     setFormData({
       id: 0,
       title: "",
+      author: "",
       description: "",
       category: "",
       image_url: "",
@@ -121,18 +122,33 @@ export function NewsForm({
           onSubmit={initialData ? handleEdit : handleSubmit}
           className="space-y-4"
         >
-          <div>
-            <label className="block text-sm font-medium mb-2">Title</label>
-            <Input
-              className="border border-green-500"
-              type="text"
-              value={formData.title}
-              onChange={(e) =>
-                setFormData({ ...formData, title: e.target.value })
-              }
-              placeholder="Article title"
-              required
-            />
+          <div className="flex flex-col md:flex-row w-full gap-4">
+            <div className="w-full">
+              <label className="block text-sm font-medium mb-2">Title</label>
+              <Input
+                className="border border-green-500"
+                type="text"
+                value={formData.title}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
+                placeholder="Article title"
+                required
+              />
+            </div>
+            <div className="w-full">
+              <label className="block text-sm font-medium mb-2">Author</label>
+              <Input
+                className="border border-green-500"
+                type="text"
+                value={formData.author}
+                onChange={(e) =>
+                  setFormData({ ...formData, author: e.target.value })
+                }
+                placeholder="Article author"
+                required
+              />
+            </div>
           </div>
           <div>
             <label className="block text-sm font-medium mb-2">Category</label>
@@ -179,7 +195,7 @@ export function NewsForm({
           <div className="flex gap-2">
             <Button
               type="submit"
-              className="bg-primary hover:bg-primary/90 cursor-pointer"
+              className="bg-accent hover:bg-accent/90 cursor-pointer"
             >
               {initialData ? "Edit Event" : "Create Event"}
               {isLoading && (

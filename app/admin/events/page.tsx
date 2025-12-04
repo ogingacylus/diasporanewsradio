@@ -128,7 +128,7 @@ export default function AdminEventsPage() {
               onClick={() => {
                 setIsFormDialogOpen(true);
               }}
-              className="bg-primary hover:bg-primary/90 gap-2 cursor-pointer"
+              className="bg-accent hover:bg-accent/90 gap-2 cursor-pointer"
             >
               <Plus size={20} />
               New Event

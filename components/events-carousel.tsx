@@ -111,7 +111,7 @@ export function EventsCarousel() {
   }
 
   return (
-    <section className="w-full bg-indigo-950 py-16 pt-32">
+    <section className="w-full bg-card py-16 pt-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-1 gap-12 items-center justify-center">
           {/* Left Content */}

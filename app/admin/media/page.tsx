@@ -107,7 +107,7 @@ export default function AdminShowsPage() {
             <h1 className="text-md md:text-4xl font-bold">Manage media</h1>
             <Button
               onClick={() => setIsFormDialogOpen(true)}
-              className="bg-primary hover:bg-primary/90 gap-2"
+              className="bg-accent hover:bg-accent/90 gap-2"
             >
               <Plus size={20} />
               New Media

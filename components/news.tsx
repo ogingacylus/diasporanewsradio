@@ -11,6 +11,7 @@ interface NewsItem {
   image_url?: string;
   category: string;
   published_at: string;
+  created_at: string;
 }
 
 export function News() {
@@ -86,7 +87,7 @@ export function News() {
                       </span>
                       <div className="flex items-center gap-1 text-xs text-muted-foreground">
                         <Calendar size={14} />
-                        {new Date(article.published_at).toLocaleDateString()}
+                        {new Date(article.created_at).toLocaleDateString()}
                       </div>
                     </div>
                     <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">

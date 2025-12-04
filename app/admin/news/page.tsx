@@ -33,6 +33,7 @@ export default function AdminNewsPage() {
   const [formData, setFormData] = useState({
     id: 0,
     title: "",
+    author: "",
     description: "",
     category: "",
     image_url: "",
@@ -114,7 +115,7 @@ export default function AdminNewsPage() {
             <h1 className="text-md md:text-4xl font-bold">News & Updates</h1>
             <Button
               onClick={() => setIsFormDialogOpen(true)}
-              className="bg-primary hover:bg-primary/90 gap-2"
+              className="bg-accent hover:bg-accent/90 gap-2 cursor-pointer"
             >
               <Plus size={20} />
               New Article

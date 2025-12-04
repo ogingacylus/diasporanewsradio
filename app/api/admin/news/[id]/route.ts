@@ -24,8 +24,8 @@ export async function PUT(
     const id = Number.parseInt(param.id);
 
     const body = await request.json();
-    const { title, description, published, category } = body;
-    await sql`UPDATE news SET title=${title}, description=${description},
+    const { title, author, description, published, category } = body;
+    await sql`UPDATE news SET title=${title}, author=${author} , description=${description},
      category=${category}, published=${published} WHERE id = ${id}`;
 
     return NextResponse.json({ success: true });

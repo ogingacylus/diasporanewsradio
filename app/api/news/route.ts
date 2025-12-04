@@ -7,7 +7,7 @@ export async function GET() {
     const news =
       await sql`SELECT * FROM news WHERE published = true ORDER BY published_at DESC LIMIT 50
     `;
-    console.log("[v0] News fetched successfully:", news.length);
+
     return NextResponse.json(news);
   } catch (error) {
     console.error("[v0] News API error details:", {
@@ -24,7 +24,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { title, description, published, category } = body;
+    const { title, author, description, published, category } = body;
 
     if (!title || !description) {
       return NextResponse.json(
@@ -39,8 +39,8 @@ export async function POST(request: NextRequest) {
       .replace(/\s+/g, "-");
 
     const result = await sql`
-      INSERT INTO news (title, slug, description, category, published, 
-      published_at) VALUES (${title}, ${slug}, ${description},${category}, ${published}, ${timeNow} )
+      INSERT INTO news (title, author, slug, description, category, published, 
+      published_at) VALUES (${title}, ${author}, ${slug}, ${description},${category}, ${published}, ${timeNow} )
     `;
 
     return NextResponse.json({ success: true }, { status: 201 });

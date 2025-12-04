@@ -4,40 +4,40 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated theme with #094424 dark forest green as background */
-  --background: #08301a;
-  --foreground: #f0f5f3;
-  --card: #0d5a2f;
-  --card-foreground: #f0f5f3;
-  --popover: #0d5a2f;
-  --popover-foreground: #f0f5f3;
-  --primary: #1e944f91;
-  --primary-foreground: #094424;
-  --secondary: #154138;
-  --secondary-foreground: #094424;
-  --muted: #1e8449;
-  --muted-foreground: #bdc3c7;
-  --accent: #f39c12;
-  --accent-foreground: #094424;
-  --destructive: #e74c3c;
-  --destructive-foreground: #f0f5f3;
-  --border: #1e8449;
-  --input: #0d5a2f;
-  --ring: #2ecc71;
-  --chart-1: #2ecc71;
-  --chart-2: #1abc9c;
-  --chart-3: #f39c12;
-  --chart-4: #3498db;
-  --chart-5: #9b59b6;
+  /* Updated to professional radio station theme: deep charcoal, warm gold accent */
+  --background: oklch(0.12 0 0);
+  --foreground: oklch(0.98 0.01 0);
+  --card: oklch(0.18 0 0);
+  --card-foreground: oklch(0.98 0.01 0);
+  --popover: oklch(0.12 0 0);
+  --popover-foreground: oklch(0.98 0.01 0);
+  --primary: oklch(0.25 0 0);
+  --primary-foreground: oklch(0.98 0.01 0);
+  --secondary: oklch(0.35 0 0);
+  --secondary-foreground: oklch(0.98 0.01 0);
+  --muted: oklch(0.35 0 0);
+  --muted-foreground: oklch(0.65 0.02 0);
+  --accent: oklch(0.68 0.18 50.77);
+  --accent-foreground: oklch(0.12 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0.01 0);
+  --border: oklch(0.25 0.01 0);
+  --input: oklch(0.18 0 0);
+  --ring: oklch(80.409% 0.26775 141.987);
+  --chart-1: oklch(0.68 0.18 50.77);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
-  --sidebar: #0d5a2f;
-  --sidebar-foreground: #f0f5f3;
-  --sidebar-primary: #2ecc71;
-  --sidebar-primary-foreground: #094424;
-  --sidebar-accent: #f39c12;
-  --sidebar-accent-foreground: #094424;
-  --sidebar-border: #1e8449;
-  --sidebar-ring: #2ecc71;
+  --sidebar: oklch(0.18 0 0);
+  --sidebar-foreground: oklch(0.98 0.01 0);
+  --sidebar-primary: oklch(0.68 0.18 50.77);
+  --sidebar-primary-foreground: oklch(0.12 0 0);
+  --sidebar-accent: oklch(0.68 0.18 50.77);
+  --sidebar-accent-foreground: oklch(0.12 0 0);
+  --sidebar-border: oklch(0.25 0.01 0);
+  --sidebar-ring: oklch(0.68 0.18 50.77);
 }
 
 .dark {

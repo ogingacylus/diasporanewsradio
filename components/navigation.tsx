@@ -147,7 +147,7 @@ export function Navigation() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors first:rounded-t-lg last:rounded-b-lg"
+                    className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors first:rounded-t-lg last:rounded-b-lg capitalize"
                   >
                     {item.name}
                   </Link>

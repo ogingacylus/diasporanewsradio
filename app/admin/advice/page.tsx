@@ -95,7 +95,7 @@ export default function AdminShowsPage() {
             </h1>
             <Button
               onClick={() => setIsFormDialogOpen(true)}
-              className="bg-primary hover:bg-primary/90 gap-2"
+              className="bg-accent hover:bg-accent/90 gap-2"
             >
               <Plus size={20} />
               New Advice Item

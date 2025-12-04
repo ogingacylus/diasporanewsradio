@@ -1,5 +1,7 @@
 "use client";
 
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Mail,
   Phone,
@@ -8,11 +10,13 @@ import {
   Twitter,
   Instagram,
   Linkedin,
+  YoutubeIcon,
+  icons,
 } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-primary text-primary-foreground border-t border-border">
+    <footer className="bg-card border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
@@ -76,25 +80,36 @@ export function Footer() {
               <li className="flex items-center gap-2">
                 <Mail size={16} />
                 <a
-                  href="mailto:hello@wave.radio"
+                  href="mailto:Diasporanewsradio@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-accent transition-colors"
                 >
-                  Nzoiatex@gmail.com
+                  Diasporanewsradio@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={16} />
                 <a
                   href="tel:+1234567890"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-accent transition-colors"
                 >
-                  +1 (682) 777-0791
+                  +1 (682) 777-0791 or +1 214 699 7164
                 </a>
               </li>
-              {/* <li className="flex items-center gap-2">
-                <MapPin size={16} />
-                <span>New York, USA</span>
-              </li> */}
+              <li className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faWhatsapp} />
+                <a
+                  href="https://wa.me/18178742847"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-accent transition-colors"
+                >
+                  +1 (817) 874-2847
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -108,6 +123,10 @@ export function Footer() {
                   href: "https://www.facebook.com/share/1VraFQoBFN/?mibextid=wwXIfr",
                 },
                 { icon: Twitter, href: "https://x.com/diasporanradio?s=11" },
+                {
+                  icon: YoutubeIcon,
+                  href: "https://www.youtube.com/@DIASPORANEWSRADIO",
+                },
               ].map((social, idx) => {
                 const Icon = social.icon;
                 return (
@@ -116,7 +135,7 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-primary-foreground/10 hover:bg-accent text-primary-foreground flex items-center justify-center transition-colors"
+                    className="w-10 h-10 rounded-lg bg-background hover:bg-accent text-foreground flex items-center justify-center transition-colors"
                   >
                     <Icon size={18} />
                   </a>
@@ -126,7 +145,7 @@ export function Footer() {
                 href="https://www.tiktok.com/@diasporanr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-primary-foreground/10 hover:bg-accent text-primary-foreground flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-lg bg-background hover:bg-accent text-foreground flex items-center justify-center transition-colors"
               >
                 <TickTockIcon className="h-5 w-5 text-green-500" />
               </a>

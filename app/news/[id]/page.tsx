@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
-import { Calendar, Share2, ArrowLeft } from "lucide-react";
+import { Calendar, Share2, ArrowLeft, User } from "lucide-react";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 import { Loader } from "@/components/loader";
@@ -15,7 +15,7 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
   const [news, setNews] = useState<any[]>([]);
   const [id, setId] = useState<any>();
   const article = news.find((n) => n.id === Number.parseInt(id));
-
+  console.log(article);
   const pathname: any = usePathname();
 
   const [baseUrl, setBaseUrl] = useState("");
@@ -85,7 +85,7 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
                 </span>
                 <div className="flex items-center gap-1 text-sm text-muted-foreground">
                   <Calendar size={16} />
-                  {formatDate(article.date)}
+                  {formatDate(new Date(String(article.created_at)))}
                 </div>
               </div>
               <h1 className="text-5xl font-bold text-foreground mb-4 text-balance">
@@ -94,7 +94,11 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
               {/* <p className="text-xl text-muted-foreground mb-6">
               {article.description}
             </p> */}
-              <p className="text-sm text-muted-foreground">By Jane Doe</p>
+              {article.author && (
+                <p className="text-sm text-muted-foreground flex items-center gap-2 ">
+                  <User className="h-5 text-accent" /> By {article.author}
+                </p>
+              )}
             </div>
 
             {/* Featured Image */}

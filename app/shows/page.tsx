@@ -56,7 +56,7 @@ export default function AllShows() {
       const response = await fetch("/api/shows");
       if (response.ok) {
         const data = await response.json();
-        setShows(data);
+        setShows(data?.slice(0, 4));
       }
     } catch (error) {
       console.error("Failed to fetch shows:", error);

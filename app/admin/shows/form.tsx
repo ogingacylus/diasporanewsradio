@@ -214,7 +214,7 @@ export function ShowsForm({
           <div className="flex gap-2">
             <Button
               type="submit"
-              className="bg-primary hover:bg-primary/90 cursor-pointer"
+              className="bg-accent hover:bg-accent/90 cursor-pointer"
             >
               {initialData ? "Edit Show" : "Create Show"}
               {isLoading && (

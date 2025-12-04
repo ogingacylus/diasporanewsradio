@@ -120,9 +120,9 @@ export function Navigation() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors first:rounded-t-lg last:rounded-b-lg"
+                    className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors first:rounded-t-lg last:rounded-b-lg capitalize"
                   >
-                    {item.name}
+                    {item.name.toLowerCase()}
                   </Link>
                 ))}
               </div>
@@ -149,7 +149,7 @@ export function Navigation() {
                     href={item.href}
                     className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors first:rounded-t-lg last:rounded-b-lg capitalize"
                   >
-                    {item.name}
+                    {item.name?.toLowerCase()}
                   </Link>
                 ))}
               </div>
@@ -228,7 +228,7 @@ export function Navigation() {
 
             <Link
               href="https://zeno.fm/radio/diaspora-news-radio/"
-              className="px-6 py-2 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
+              className="px-6 py-2 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center gap-2 "
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -281,9 +281,9 @@ export function Navigation() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+                      className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded capitalize"
                     >
-                      {item.name}
+                      {item.name.toLowerCase()}
                     </Link>
                   ))}
                 </div>
@@ -313,9 +313,9 @@ export function Navigation() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+                      className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded capitalize"
                     >
-                      {item.name}
+                      {item.name.toLowerCase()}
                     </Link>
                   ))}
                 </div>

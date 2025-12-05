@@ -113,7 +113,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-primary-foreground/80  transition-colors"
                 >
-                  +1 (817) 874-2847
+                  +1 682 777 0791
                 </a>
               </li>
             </ul>

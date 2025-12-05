@@ -81,8 +81,8 @@ export function Contact() {
             {
               icon: faWhatsapp,
               title: "Whatsapp",
-              value: "+1 (817) 874-2847",
-              link: "https://wa.me/18178742847",
+              value: "+1 682 777 0791",
+              link: "https://wa.me/+1682770791",
             },
           ].map((item, idx) => {
             const Icon = item.icon;

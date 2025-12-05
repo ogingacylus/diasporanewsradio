@@ -128,7 +128,7 @@ export default function AdvertisementsPage() {
             </button>
 
             {/* Success Message */}
-            {!submitted && (
+            {submitted && (
               <div className="bg-green-500/20 border border-green-500/50 text-green-700 rounded-lg p-4 text-center">
                 ✓ Message sent successfully! We'll get back to you soon.
               </div>

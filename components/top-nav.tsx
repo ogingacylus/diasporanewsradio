@@ -41,7 +41,8 @@ export function TopNav() {
               className="flex items-center gap-2 hover:opacity-80 transition-opacity"
             >
               <Phone size={16} />
-              <span> +1 (682) 777-0791 or +1 214 699 7164</span>
+              <span> +1 (682) 777-0791 </span>{" "}
+              <span className="hidden md:block">or +1 214 699 7164</span>
             </Link>
           </div>
 

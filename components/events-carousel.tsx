@@ -116,7 +116,7 @@ export function EventsCarousel({ events_ }: { events_: any }) {
             Upcoming Events
           </h2>
           <p className="mt-2 text-muted-foreground">
-            Don't miss exciting diaspora events_ close to you.
+            Don't miss exciting diaspora events close to you.
           </p>
         </div>
 

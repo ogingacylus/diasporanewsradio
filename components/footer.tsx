@@ -16,7 +16,7 @@ import {
 
 export function Footer() {
   return (
-    <footer className="bg-card border-t border-border">
+    <footer className=" bg-primary text-primary-foreground border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
@@ -37,27 +37,33 @@ export function Footer() {
             <h3 className="font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm opacity-80">
               <li>
-                <a href="#" className="hover:text-accent transition-colors">
+                <a
+                  href="#"
+                  className="hover:text-primary-foreground/80 transition-colors"
+                >
                   Home
                 </a>
               </li>
               <li>
                 <a
                   href="#shows"
-                  className="hover:text-accent transition-colors"
+                  className="hover:text-primary-foreground/80 transition-colors"
                 >
                   Shows
                 </a>
               </li>
               <li>
-                <a href="#news" className="hover:text-accent transition-colors">
+                <a
+                  href="#news"
+                  className="hover:text-primary-foreground/80  transition-colors"
+                >
                   News
                 </a>
               </li>
               <li>
                 <a
                   href="#contact"
-                  className="hover:text-accent transition-colors"
+                  className="hover:text-primary-foreground/80 transition-colors"
                 >
                   Contact
                 </a>
@@ -65,7 +71,7 @@ export function Footer() {
               <li>
                 <a
                   href="#about"
-                  className="hover:text-accent transition-colors"
+                  className="hover:text-primary-foreground/80  transition-colors"
                 >
                   About
                 </a>
@@ -83,7 +89,7 @@ export function Footer() {
                   href="mailto:Diasporanewsradio@gmail.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-accent transition-colors"
+                  className="hover:text-primary-foreground/80 transition-colors"
                 >
                   Diasporanewsradio@gmail.com
                 </a>
@@ -91,10 +97,10 @@ export function Footer() {
               <li className="flex items-center gap-2">
                 <Phone size={16} />
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+16827770791"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-accent transition-colors"
+                  className="hover:text-primary-foreground/80  transition-colors"
                 >
                   +1 (682) 777-0791 or +1 214 699 7164
                 </a>
@@ -105,7 +111,7 @@ export function Footer() {
                   href="https://wa.me/18178742847"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-accent transition-colors"
+                  className="hover:text-primary-foreground/80  transition-colors"
                 >
                   +1 (817) 874-2847
                 </a>
@@ -135,7 +141,7 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-background hover:bg-accent text-foreground flex items-center justify-center transition-colors"
+                    className="w-10 h-10 rounded-lg bg-background hover:bg-primary-foreground/80  text-accent flex items-center justify-center transition-colors"
                   >
                     <Icon size={18} />
                   </a>
@@ -145,9 +151,9 @@ export function Footer() {
                 href="https://www.tiktok.com/@diasporanr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-background hover:bg-accent text-foreground flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-lg bg-background hover:bg-primary-foreground/80  text-accent flex items-center justify-center transition-colors"
               >
-                <TickTockIcon className="h-5 w-5 text-green-500" />
+                <TickTockIcon className="h-5 w-5 " />
               </a>
             </div>
           </div>
@@ -158,10 +164,16 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center text-sm opacity-80">
             <p>&copy; 2025 Diaspora News Radio. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
-              <a href="#" className="hover:text-accent transition-colors">
+              <a
+                href="#"
+                className="hover:text-primary-foreground/80  transition-colors"
+              >
                 Privacy Policy
               </a>
-              <a href="#" className="hover:text-accent transition-colors">
+              <a
+                href="#"
+                className="hover:text-primary-foreground/80  transition-colors"
+              >
                 Terms of Service
               </a>
             </div>
@@ -185,7 +197,7 @@ function TickTockIcon({ className }: { className?: string }) {
       viewBox="0 0 455 512.098"
     >
       <path
-        fill="#ffff"
+        fill="#dd1781ff"
         fillRule="nonzero"
         d="M321.331.011h-81.882v347.887c0 45.59-32.751 74.918-72.582 74.918-39.832 0-75.238-29.327-75.238-74.918 0-52.673 41.165-80.485 96.044-74.727v-88.153c-7.966-1.333-15.932-1.77-22.576-1.77C75.249 183.248 0 255.393 0 344.794c0 94.722 74.353 167.304 165.534 167.304 80.112 0 165.097-58.868 165.097-169.96V161.109c35.406 35.406 78.341 46.476 124.369 46.476V126.14C398.35 122.151 335.494 84.975 321.331 0v.011z"
       />

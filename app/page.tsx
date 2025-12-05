@@ -8,6 +8,7 @@ import { Testimonials } from "@/components/testimonials";
 import { Shows } from "@/components/shows";
 import { Footer } from "@/components/footer";
 import { Contact } from "@/components/contact";
+import { TopNav } from "@/components/top-nav";
 import {
   fetchHomeNews,
   fetchHomeEvents,
@@ -25,7 +26,6 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-indigo-700">
-      <Navigation />
       <Suspense
         fallback={
           <Wrapper

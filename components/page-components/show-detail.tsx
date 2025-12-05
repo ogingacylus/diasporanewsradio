@@ -21,7 +21,7 @@ export default function ShowDetail({ show }: { show: any }) {
 
   return (
     <>
-      <div className="pt-24 pb-20 mt-12">
+      <div className="pt-24 pb-20 mt-18">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Image */}
           <div className="rounded-xl overflow-hidden mb-8 h-96">

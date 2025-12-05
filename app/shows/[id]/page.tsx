@@ -17,7 +17,7 @@ export default async function ShowDetailPage(props: {
     return (
       <>
         <Navigation />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center m">
           <h1 className="text-4xl font-bold text-foreground mb-4">
             Show Not Found
           </h1>

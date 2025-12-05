@@ -112,7 +112,7 @@ export function ShowsForm({
 
   return (
     <Dialog open={isFormDialogOpen} onOpenChange={handleModalClose}>
-      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-gray-700">
+      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-gray-50">
         <DialogHeader>
           <DialogTitle className="font-sans font-bold"></DialogTitle>
           <DialogDescription className="font-serif"></DialogDescription>

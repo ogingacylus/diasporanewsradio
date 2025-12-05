@@ -16,12 +16,12 @@ export default function MarketingPage() {
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 mt-32">
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center justify-center p-3 bg-accent/10 rounded-full mb-6">
+          <div className="inline-flex items-center justify-center p-3 bg-accent/10 rounded-full mb-6 mt-6">
             <Megaphone className="w-8 h-8 text-accent" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 flex flex-col gap-4">
             Amplify Your Brand with{" "}
-            <span className="text-accent">DIASPORA NEWS RADIO</span>
+            <span className="text-accent ">DIASPORA NEWS RADIO</span>
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
             Reach thousands of engaged listeners daily. Our diverse programming

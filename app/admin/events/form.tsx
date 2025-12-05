@@ -122,7 +122,7 @@ export function EventForm({
 
   return (
     <Dialog open={isFormDialogOpen} onOpenChange={handleModalClose}>
-      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-gray-700">
+      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-gray-50">
         <DialogHeader>
           <DialogTitle className="font-sans font-bold"></DialogTitle>
           <DialogDescription className="font-serif"></DialogDescription>
@@ -190,7 +190,7 @@ export function EventForm({
               }
               placeholder="Event description"
               rows={6}
-              className="w-full px-3 py-2  border-input border-green-500 rounded-md bg-background"
+              className="w-full px-3 py-2  border border-green-500 rounded-md bg-background"
               required
             />
           </div>

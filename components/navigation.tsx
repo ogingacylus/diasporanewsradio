@@ -4,53 +4,29 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Menu, X, Radio, ChevronDown, Volume2 } from "lucide-react";
 import Link from "next/link";
+import { TopNav } from "./top-nav";
+import { usePathname } from "next/navigation";
+import { navData } from "./provider";
 
 export function Navigation() {
+  const { shows, news } = navData();
+
+  const pathname: string = usePathname();
+
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [shows, setShows] = useState<any[]>([]);
-  const [news, setNews] = useState<any[]>([]);
+  // const [shows, setShows] = useState<any[]>([]);
+  // const [news, setNews] = useState<any[]>([]);
 
-  const filtredshows = shows?.map((show) => ({
+  const filtredshows = shows?.map((show: any) => ({
     name: show.title,
     href: `/shows/${show.id}`,
   }));
 
-  const filteredNews = news?.map((item) => ({
+  const filteredNews = news?.map((item: any) => ({
     name: item.title,
     href: `/news/${item.id}`,
   }));
-
-  useEffect(() => {
-    fetchShows();
-    fetchNews();
-  }, []);
-
-  const fetchShows = async () => {
-    try {
-      const response = await fetch("/api/admin/shows");
-      if (response.ok) {
-        const data = await response.json();
-        setShows(data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch shows:", error);
-    } finally {
-    }
-  };
-
-  const fetchNews = async () => {
-    try {
-      const response = await fetch("/api/news");
-      if (response.ok) {
-        const data = await response.json();
-        setNews(data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch news:", error);
-    } finally {
-    }
-  };
 
   const dropdownItems = {
     shows: filtredshows,
@@ -78,8 +54,13 @@ export function Navigation() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
-      <div className=" mx-2  ">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50  border-b border-border bg-primary text-primary-foreground ${
+        pathname.startsWith("/admin") ? "" : ""
+      }`}
+    >
+      <TopNav />
+      <div className={`mx-2 ${pathname.startsWith("/admin") ? "hidden" : ""}`}>
         <div className="flex justify-between items-center h-24">
           {/* Logo */}
           <Link
@@ -87,7 +68,7 @@ export function Navigation() {
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
             <Image src="/diaspora-logo.png" alt="logo" height={60} width={60} />
-            <span className="text-lg font-bold text-foreground  sm:inline ">
+            <span className="text-lg font-bold text-primary-foreground   sm:inline ">
               Diaspora News Radio
             </span>
           </Link>
@@ -96,31 +77,31 @@ export function Navigation() {
           <div className="hidden md:flex items-center gap-8">
             <Link
               href="/"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors"
             >
               Home
             </Link>
 
             {/* Shows Dropdown */}
             <div className="relative group">
-              <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2">
+              <button className="flex items-center gap-1 text-md font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors py-2">
                 <Link
                   href="/shows"
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors"
                 >
                   Shows
                 </Link>
                 <ChevronDown
-                  size={16}
+                  size={18}
                   className="group-hover:rotate-180 transition-transform"
                 />
               </button>
-              <div className="absolute left-0 mt-0 w-48 bg-card border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pt-2">
-                {dropdownItems.shows.map((item) => (
+              <div className="absolute left-0 mt-0 w-48 bg-background border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pt-2">
+                {dropdownItems.shows.map((item: any) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors first:rounded-t-lg last:rounded-b-lg capitalize"
+                    className="block px-4 py-2 text-sm text-foreground hover:text-primary hover:bg-card transition-colors first:rounded-t-lg last:rounded-b-lg capitalize"
                   >
                     {item.name.toLowerCase()}
                   </Link>
@@ -130,83 +111,58 @@ export function Navigation() {
 
             {/* News Dropdown */}
             <div className="relative group">
-              <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2">
+              <button className="flex items-center gap-1 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors py-2">
                 <Link
                   href="/news"
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors"
                 >
                   News
                 </Link>
                 <ChevronDown
-                  size={16}
+                  size={18}
                   className="group-hover:rotate-180 transition-transform"
                 />
               </button>
-              <div className="absolute left-0 mt-0 w-48 bg-card border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pt-2">
-                {dropdownItems.news.map((item) => (
+              <div className="absolute left-0 mt-0 w-48 bg-background border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pt-2">
+                {dropdownItems.news.map((item: any) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors first:rounded-t-lg last:rounded-b-lg capitalize"
+                    className="block px-4 py-2 text-sm text-foreground hover:text-primary hover:bg-card transition-colors first:rounded-t-lg last:rounded-b-lg capitalize"
                   >
                     {item.name?.toLowerCase()}
                   </Link>
                 ))}
               </div>
             </div>
-            {/* Community Dropdown */}
-            {/* <div className="relative group">
-              <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2">
-                <Link
-                  href="#"
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Community
-                </Link>
-                <ChevronDown
-                  size={16}
-                  className="group-hover:rotate-180 transition-transform"
-                />
-              </button>
-              <div className="absolute left-0 mt-0 w-48 bg-card border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pt-2">
-                {dropdownItems.community.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors first:rounded-t-lg last:rounded-b-lg"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </div> */}
+
             <Link
               href="/events"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors"
             >
               Upcomming Events
             </Link>
             <Link
               href="/advertisements"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors"
             >
               Marketing
             </Link>
             {/* Resouces Dropdown */}
             <div className="relative group">
-              <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2">
+              <button className="flex items-center gap-1 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors py-2">
                 Resources
                 <ChevronDown
-                  size={16}
+                  size={18}
                   className="group-hover:rotate-180 transition-transform"
                 />
               </button>
-              <div className="absolute left-0 mt-0 w-48 bg-card border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pt-2">
+              <div className="absolute left-0 mt-0 w-48 bg-background border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pt-2">
                 {dropdownItems.resources.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors first:rounded-t-lg last:rounded-b-lg"
+                    className="block px-4 py-2 text-sm text-foreground hover:text-primary hover:bg-card transition-colors first:rounded-t-lg last:rounded-b-lg"
                   >
                     {item.name}
                   </Link>
@@ -215,34 +171,34 @@ export function Navigation() {
             </div>
             <Link
               href="/#about"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors"
             >
               About
             </Link>
             <Link
               href="/#contact"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors"
             >
               Contact
             </Link>
 
             <Link
               href="https://zeno.fm/radio/diaspora-news-radio/"
-              className="px-6 py-2 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center gap-2 "
+              className="px-6 py-4 bg-teal-400 text-accent-foreground rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center gap-2 "
               target="_blank"
               rel="noopener noreferrer"
             >
-              Listen Live
-              <div className="w-8 h-8 rounded-full border-4 border-accent/50 flex items-center justify-center animate-pulse">
+              LISTEN LIVE
+              {/* <div className="w-8 h-8 rounded-full border-4 border-accent/50 flex items-center justify-center animate-pulse">
                 <Volume2 className="w-6 h-6 text-white" />
-              </div>
+              </div> */}
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-foreground"
+            className="md:hidden text-primary-foreground"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -253,7 +209,7 @@ export function Navigation() {
           <div className="md:hidden border-t border-border py-4 space-y-1">
             <Link
               href="/"
-              className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+              className="block px-4 py-2 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded"
             >
               Home
             </Link>
@@ -264,11 +220,11 @@ export function Navigation() {
                 onClick={() =>
                   setOpenDropdown(openDropdown === "shows" ? null : "shows")
                 }
-                className="w-full flex items-center justify-between px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+                className="w-full flex items-center justify-between px-4 py-2 text-sm font-medium text-white hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded"
               >
                 Shows
                 <ChevronDown
-                  size={16}
+                  size={18}
                   className={`transition-transform ${
                     openDropdown === "shows" ? "rotate-180" : ""
                   }`}
@@ -276,12 +232,12 @@ export function Navigation() {
               </button>
               {openDropdown === "shows" && (
                 <div className="pl-4 space-y-1 mt-1">
-                  {dropdownItems.shows.map((item) => (
+                  {dropdownItems.shows.map((item: any) => (
                     <Link
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded capitalize"
+                      className="block px-4 py-2 text-sm text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded capitalize"
                     >
                       {item.name.toLowerCase()}
                     </Link>
@@ -296,7 +252,7 @@ export function Navigation() {
                 onClick={() =>
                   setOpenDropdown(openDropdown === "news" ? null : "news")
                 }
-                className="w-full flex items-center justify-between px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+                className="w-full flex items-center justify-between px-4 py-2 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded"
               >
                 News
                 <ChevronDown
@@ -308,12 +264,12 @@ export function Navigation() {
               </button>
               {openDropdown === "news" && (
                 <div className="pl-4 space-y-1 mt-1">
-                  {dropdownItems.news.map((item) => (
+                  {dropdownItems.news.map((item: any) => (
                     <Link
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded capitalize"
+                      className="block px-4 py-2 text-sm text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded capitalize"
                     >
                       {item.name.toLowerCase()}
                     </Link>
@@ -324,13 +280,13 @@ export function Navigation() {
             {/* Upcoming events */}
             <Link
               href="/events"
-              className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+              className="block px-4 py-2 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded"
             >
               Upcoming events
             </Link>
             <Link
               href="/advertisements"
-              className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+              className="block px-4 py-2 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80transition-colors rounded"
             >
               Marketing
             </Link>
@@ -375,7 +331,7 @@ export function Navigation() {
                     openDropdown === "resources" ? null : "resources"
                   )
                 }
-                className="w-full flex items-center justify-between px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+                className="w-full flex items-center justify-between px-4 py-2 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded"
               >
                 Resources
                 <ChevronDown
@@ -392,7 +348,7 @@ export function Navigation() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+                      className="block px-4 py-2 text-sm text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded"
                     >
                       {item.name}
                     </Link>
@@ -402,26 +358,26 @@ export function Navigation() {
             </div>
             <Link
               href="/#about"
-              className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+              className="block px-4 py-2 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded"
             >
               About
             </Link>
             <Link
               href="/#contact"
-              className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors rounded"
+              className="block px-4 py-2 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded"
             >
               Contact
             </Link>
             <a
               href="https://zeno.fm/radio/diaspora-news-radio/"
-              className="w-full mt-2 px-6 py-2 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-4 "
+              className="w-full mt-2 px-6 py-2 bg-teal-400 text-accent-foreground rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-4 "
               target="_blank"
               rel="noopener noreferrer"
             >
-              Listen Live
-              <div className="w-8 h-8 rounded-full border-4 border-accent/50 flex items-center justify-center animate-pulse">
+              LISTEN LIVE
+              {/* <div className="w-8 h-8 rounded-full border-4 border-accent/50 flex items-center justify-center animate-pulse">
                 <Volume2 className="w-6 h-6 text-white" />
-              </div>
+              </div> */}
             </a>
           </div>
         )}

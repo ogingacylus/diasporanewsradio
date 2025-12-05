@@ -59,7 +59,7 @@ export default function AdvertisementsPage() {
             you. Reach out to us by filling the form bellow.
           </p>
         </div>
-        <div className="bg-primary rounded-lg border border-border p-8">
+        <div className="bg-gray-50 rounded-lg border border-border p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name and Email */}
             <div className="grid md:grid-cols-2 gap-6">
@@ -72,7 +72,7 @@ export default function AdvertisementsPage() {
                   onChange={handleChange}
                   required
                   placeholder="Your name"
-                  className="w-full px-4 py-2 bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
+                  className="w-full px-4 py-2 bg-white border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
                 />
               </div>
               <div>
@@ -84,7 +84,7 @@ export default function AdvertisementsPage() {
                   onChange={handleChange}
                   required
                   placeholder="your@email.com"
-                  className="w-full px-4 py-2 bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
+                  className="w-full px-4 py-2 bg-white border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
                 />
               </div>
             </div>
@@ -99,7 +99,7 @@ export default function AdvertisementsPage() {
                 onChange={handleChange}
                 required
                 placeholder="What is this about?"
-                className="w-full px-4 py-2 bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
+                className="w-full px-4 py-2 bg-white border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
               />
             </div>
 
@@ -113,14 +113,14 @@ export default function AdvertisementsPage() {
                 required
                 placeholder="Your message..."
                 rows={5}
-                className="w-full px-4 py-2 bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground resize-none"
+                className="w-full px-4 py-2 bg-white border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground resize-none"
               />
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-accent text-accent-foreground font-bold py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 group"
+              className="w-full bg-teal-500 text-accent-foreground font-bold py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 group"
               disabled={isSubmitting}
             >
               <Send size={18} />
@@ -128,8 +128,8 @@ export default function AdvertisementsPage() {
             </button>
 
             {/* Success Message */}
-            {submitted && (
-              <div className="bg-green-500/20 border border-green-500/50 text-green-200 rounded-lg p-4 text-center">
+            {!submitted && (
+              <div className="bg-green-500/20 border border-green-500/50 text-green-700 rounded-lg p-4 text-center">
                 ✓ Message sent successfully! We'll get back to you soon.
               </div>
             )}

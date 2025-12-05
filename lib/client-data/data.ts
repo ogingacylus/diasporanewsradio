@@ -169,6 +169,7 @@ export async function fetchMedia() {
     console.log(error);
   }
 }
+
 export async function fetchTemplate() {
   try {
     const data =

@@ -92,7 +92,7 @@ export function Contact() {
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-primary p-8 rounded-lg border border-border hover:border-accent transition-colors group cursor-pointer"
+                className="bg-gray-50 p-8 rounded-lg border border-border hover:border-accent transition-colors group cursor-pointer"
               >
                 <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/30 transition-colors">
                   <FontAwesomeIcon
@@ -112,7 +112,7 @@ export function Contact() {
 
         {/* Contact Form */}
         <div className="max-w-2xl mx-auto">
-          <div className="bg-primary rounded-lg border border-border p-8">
+          <div className="bg-gray-50 rounded-lg border border-border p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name and Email */}
               <div className="grid md:grid-cols-2 gap-6">
@@ -125,7 +125,7 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     placeholder="Your name"
-                    className="w-full px-4 py-2 bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
+                    className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
                 <div>
@@ -139,7 +139,7 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     placeholder="your@email.com"
-                    className="w-full px-4 py-2 bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
+                    className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
               </div>
@@ -156,7 +156,7 @@ export function Contact() {
                   onChange={handleChange}
                   required
                   placeholder="What is this about?"
-                  className="w-full px-4 py-2 bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground"
                 />
               </div>
 
@@ -172,14 +172,14 @@ export function Contact() {
                   required
                   placeholder="Your message..."
                   rows={5}
-                  className="w-full px-4 py-2 bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground resize-none"
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-foreground placeholder:text-muted-foreground resize-none"
                 />
               </div>
 
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-accent text-accent-foreground font-bold py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 group"
+                className="w-full bg-teal-600 text-accent-foreground font-bold py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 group cursor-pointer"
                 disabled={isSubmitting}
               >
                 <Send size={18} />
@@ -188,7 +188,7 @@ export function Contact() {
 
               {/* Success Message */}
               {submitted && (
-                <div className="bg-green-500/20 border border-green-500/50 text-green-200 rounded-lg p-4 text-center">
+                <div className="bg-green-500/20 border border-green-500/50 text-green-600 rounded-lg p-4 text-center">
                   ✓ Message sent successfully! We'll get back to you soon.
                 </div>
               )}

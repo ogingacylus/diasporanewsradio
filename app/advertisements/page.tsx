@@ -3,6 +3,7 @@ import { Footer } from "@/components/footer";
 import Advertisements from "@/components/page-components/advertisments";
 import { fetchPremiumAds, fetchLocalAds } from "@/lib/client-data/data";
 
+export const dynamic = "force-dynamic";
 export default async function AdvertisementsPage() {
   const premium = await fetchPremiumAds();
   const local = await fetchLocalAds();

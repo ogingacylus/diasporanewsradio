@@ -5,6 +5,8 @@ import { Suspense } from "react";
 import { Loader } from "@/components/loader";
 import EventDetail from "@/components/page-components/event-details";
 
+export const dynamic = "force-dynamic";
+
 export default async function ShowDetail(props: {
   params: Promise<{ id: number }>;
 }) {

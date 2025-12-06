@@ -9,6 +9,8 @@ import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 
+export const dynamic = "force-dynamic";
+
 export default function MarketingPage() {
   return (
     <div className="min-h-screen bg-background">

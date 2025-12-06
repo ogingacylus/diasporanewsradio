@@ -1,6 +1,8 @@
 import sql from "@/lib/db";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const stories = await sql`SELECT * FROM stories ORDER BY created_at DESC`;

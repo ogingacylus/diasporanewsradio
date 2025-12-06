@@ -5,6 +5,8 @@ import { Loader } from "@/components/loader";
 import Stories from "@/components/page-components/stories";
 import { fetchStories } from "@/lib/client-data/data";
 
+export const dynamic = "force-dynamic";
+
 export default async function StoriesPage() {
   const stories = await fetchStories();
 

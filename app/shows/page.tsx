@@ -5,6 +5,8 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
 export default async function AllShows() {
   const shows = await fetchShows();
 

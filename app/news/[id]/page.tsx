@@ -6,6 +6,8 @@ import NeswsDetail from "@/components/page-components/news-details";
 import { Loader } from "@/components/loader";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
 export default async function NewsDetailPage(props: {
   params: Promise<{ id: number }>;
 }) {

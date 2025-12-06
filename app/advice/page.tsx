@@ -5,6 +5,8 @@ import { Suspense } from "react";
 import { fetchAdices } from "@/lib/client-data/data";
 import Advices from "@/components/page-components/advice";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdvicesPage() {
   const advices = await fetchAdices();
   return (

@@ -5,6 +5,8 @@ import { fetchNews } from "@/lib/client-data/data";
 import { Suspense } from "react";
 import { Loader } from "@/components/loader";
 
+export const dynamic = "force-dynamic";
+
 export default async function NewsPage() {
   const news = await fetchNews();
   return (

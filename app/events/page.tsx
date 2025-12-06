@@ -5,6 +5,8 @@ import { formatDate } from "@/lib/utils";
 import { fetchEvents } from "@/lib/client-data/data";
 import Events from "@/components/page-components/events";
 
+export const dynamic = "force-dynamic";
+
 export default async function AllShows() {
   const events = await fetchEvents();
 

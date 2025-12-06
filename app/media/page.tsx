@@ -5,6 +5,8 @@ import Photos from "@/components/page-components/media";
 import { Suspense } from "react";
 import { fetchMedia } from "@/lib/client-data/data";
 
+export const dynamic = "force-dynamic";
+
 export default async function PhotosPage() {
   const media = await fetchMedia();
   return (

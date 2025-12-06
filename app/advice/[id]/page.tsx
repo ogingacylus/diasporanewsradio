@@ -6,6 +6,8 @@ import { Suspense } from "react";
 import { Loader } from "@/components/loader";
 import AdvicesDetail from "@/components/page-components/advice-details";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdvicesDetailPage(props: {
   params: Promise<{ id: number }>;
 }) {

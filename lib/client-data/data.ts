@@ -54,7 +54,18 @@ export async function fetchShowById(id: number) {
   try {
     const data =
       await sql`SELECT * FROM shows WHERE published=true AND id=${id}`;
+
     return data[0];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function fetchDetailsShow(id: number) {
+  try {
+    const shows =
+      await sql`SELECT * FROM shows WHERE published=true AND id !=${id} ORDER BY created_at DESC LIMIT 3`;
+    return shows;
   } catch (error) {
     console.log(error);
   }

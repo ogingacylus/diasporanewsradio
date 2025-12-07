@@ -46,7 +46,8 @@ export default function Shows({ shows }: { shows: any }) {
                     {show.genre}
                   </p>
                   <p className="text-sm text-muted-foreground mb-4 flex-grow">
-                    {show.description}
+                    {show.description?.slice(0, 70)}{" "}
+                    {show.description?.length > 70 && "..."}
                   </p>
                   <div className="pt-4 border-t border-border">
                     <p className="text-sm text-muted-foreground mb-1">

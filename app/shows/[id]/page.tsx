@@ -1,7 +1,7 @@
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import Link from "next/link";
-import { fetchShowById } from "@/lib/client-data/data";
+import { fetchShowById, fetchDetailsShow } from "@/lib/client-data/data";
 import { Suspense } from "react";
 import { Loader } from "@/components/loader";
 import ShowDetail from "@/components/page-components/show-detail";
@@ -14,6 +14,8 @@ export default async function ShowDetailPage(props: {
   const params = await props.params;
   const id = params.id;
   const show = await fetchShowById(id);
+  const shows = await fetchDetailsShow(id);
+  console.log(shows);
 
   if (!show) {
     return (
@@ -42,7 +44,7 @@ export default async function ShowDetailPage(props: {
     <div className="min-h-screen bg-background">
       <Navigation />
       <Suspense fallback={<Loader />}>
-        <ShowDetail show={show} />
+        <ShowDetail show={show} shows={shows} />
       </Suspense>
       <Footer />
     </div>

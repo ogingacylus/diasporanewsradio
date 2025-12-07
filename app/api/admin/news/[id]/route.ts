@@ -3,9 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-export async function DELETE({ params }: { params: { id: string } }) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const param = await params;
+
     const id = Number.parseInt(param.id);
 
     await sql`DELETE FROM news WHERE id = ${id}`;

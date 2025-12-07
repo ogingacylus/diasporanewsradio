@@ -10,6 +10,11 @@ import { fetchNews, fetchShows } from "@/lib/client-data/data";
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1.0,
+};
+
 export const metadata: Metadata = {
   title: "Diasporsa News Radio",
   description: "Listen to the world",

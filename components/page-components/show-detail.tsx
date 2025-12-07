@@ -9,7 +9,7 @@ import { Loader } from "@/components/loader";
 import ShareButtons from "@/components/socialShare";
 import { usePathname } from "next/navigation";
 
-export default function ShowDetail({ show }: { show: any }) {
+export default function ShowDetail({ show, shows }: { show: any; shows: any }) {
   const pathname: any = usePathname();
   const [baseUrl, setBaseUrl] = useState("");
 
@@ -24,19 +24,107 @@ export default function ShowDetail({ show }: { show: any }) {
       <div className="pt-24 pb-20 mt-18">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Image */}
-          <div className="rounded-xl overflow-hidden mb-8 h-96">
-            <img
-              src={show.image_url || "/placeholder.svg"}
-              alt={show.title}
-              className="w-full h-full object-cover"
-            />
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="hidden md:flex flex-col gap-4 border-r mb-12 ">
+              <h1 className="text-lg font-bold">Top Shows</h1>
+              {shows?.map((item: any) => (
+                <Link key={item.id} href={`/shows/${item.id}`}>
+                  {" "}
+                  <div className="grid grid-cols-3 gap-4 border-b py-2 mr-6 ">
+                    <div className="col-span-2">
+                      <p className="text-xs text-pink-500 uppercase">
+                        {item.genre || "GENERAL SHOW"}
+                      </p>
+                      <p className="text-xs pt-4 font-bold">{item.title}</p>
+                      <p className="text-xs pt-2 hover:text-pink-500 capitalize">
+                        {item.description
+                          ?.toLowerCase()
+                          ?.split(" ")
+                          .slice(0, 10)
+                          .join(" ")}
+                        ...
+                      </p>
+                    </div>
+                    <div className="h-24 ">
+                      <img
+                        src={item.image_url || "/placeholder.svg"}
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="">
+              <h1 className="text-5xl font-bold text-foreground mb-2 text-balance">
+                {show.title}
+              </h1>
+              <h3 className="text-md pb-4">
+                Host <span className="text-pink-500">{show.host}</span>
+              </h3>
+              <div className="rounded-md overflow-hidden mb-8 h-96 full">
+                <img
+                  src={show.image_url || "/placeholder.svg"}
+                  alt={show.title}
+                  className="w-full h-full object-fill"
+                />
+              </div>
+            </div>
+            <div className="pl-18 hidden md:block">
+              <div className="bg-card border border-border rounded-xl p-6 sticky top-24">
+                <h2 className="text-2xl font-bold text-foreground mb-4">
+                  Show Information
+                </h2>
+
+                <div className="mb-8">
+                  <p className="text-sm text-muted-foreground mb-2">Air Time</p>
+                  <p className="font-semibold text-foreground flex items-center gap-2">
+                    <Clock size={16} />
+                    {show.schedule}
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <Link
+                    href="https://zeno.fm/radio/diaspora-news-radio/"
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Play size={18} />
+                    Listen Now
+                  </Link>
+                  <div className="w-full flex flex-col gap-4 items-center justify-center gap-2 px-6 py-3 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">
+                    <div className="flex items-center justify-center gap-2">
+                      {" "}
+                      <Share2 size={18} />
+                      Share
+                    </div>
+                    <ShareButtons
+                      title={show.title}
+                      url={`${baseUrl}${pathname}`}
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-border">
+                  <Link
+                    href="/shows"
+                    className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium"
+                  >
+                    ← Back to Shows
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Content Grid */}
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main Content */}
-            <div className="lg:col-span-2">
-              <h1 className="text-5xl font-bold text-foreground mb-2 text-balance">
+            <div className="lg:col-span-3">
+              <h1 className="text-5xl font-bold text-foreground mb-2 text-balance hidden">
                 {show.title}
               </h1>
               <p className="text-lg text-accent mb-6">{show.genre}</p>
@@ -76,10 +164,10 @@ export default function ShowDetail({ show }: { show: any }) {
             </div>
 
             {/* Sidebar */}
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1 md:hidden">
               <div className="bg-card border border-border rounded-xl p-6 sticky top-24">
                 <h2 className="text-2xl font-bold text-foreground mb-4">
-                  Host Information
+                  Show Information
                 </h2>
                 <div className="mb-6">
                   <p className="text-sm text-muted-foreground mb-2">

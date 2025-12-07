@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Show {
   id: number;
@@ -39,7 +40,7 @@ export function Shows({ shows_ }: { shows_: any }) {
           <div className="text-center text-muted-foreground">
             <p>{error}</p>
             <p className="text-sm mt-2">
-              Initialize the database to see shows_.
+              Initialize the database to see shows.
             </p>
           </div>
         ) : shows_.length > 0 ? (
@@ -47,11 +48,12 @@ export function Shows({ shows_ }: { shows_: any }) {
             {shows_.map((show: any) => (
               <Link href={`/shows/${show.id}`} key={show.id}>
                 <div className="group rounded-xl overflow-hidden border border-border hover:border-accent transition-all duration-300 hover:shadow-lg cursor-pointer h-full">
-                  <div className="relative overflow-hidden h-40 bg-card">
-                    <img
+                  <div className="relative overflow-hidden h-64 bg-card">
+                    <Image
                       src={show.image_url || "/placeholder.svg"}
                       alt={show.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      fill
+                      className="w-full h-full object-fill group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   <div className="p-4">

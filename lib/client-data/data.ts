@@ -3,7 +3,8 @@ import sql from "../db";
 export async function fetchHomeNews() {
   try {
     const data =
-      await sql`SELECT * FROM news WHERE published=true ORDER BY created_at DESC LIMIT 3 `;
+      await sql`SELECT * FROM news WHERE published=true ORDER BY updated_at DESC LIMIT 3 `;
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -74,7 +75,7 @@ export async function fetchDetailsShow(id: number) {
 export async function fetchNews() {
   try {
     const data =
-      await sql`SELECT * FROM news WHERE published=true ORDER BY created_at DESC`;
+      await sql`SELECT * FROM news WHERE published=true ORDER BY updated_at DESC`;
     return data;
   } catch (error) {
     console.log(error);

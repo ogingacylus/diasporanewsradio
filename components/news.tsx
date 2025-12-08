@@ -52,7 +52,7 @@ export function News({ news_, color }: { news_: any; color: any }) {
             {news_.map((article: any) => (
               <Link href={`/news/${article.id}`} key={article.id}>
                 <article className="group rounded-xl overflow-hidden border border-border hover:border-accent transition-all duration-300 hover:shadow-lg cursor-pointer h-full flex flex-col">
-                  <div className="relative overflow-hidden h-48 bg-background">
+                  <div className="relative overflow-hidden h-64 bg-background">
                     <img
                       src={article.image_url || "/placeholder.svg"}
                       alt={article.title}
@@ -87,6 +87,15 @@ export function News({ news_, color }: { news_: any; color: any }) {
         ) : (
           <div className="text-center text-muted-foreground">
             No news available yet
+          </div>
+        )}
+        {news_.length > 0 && (
+          <div className="text-center mt-12">
+            <Link href="/news">
+              <button className="px-8 py-3 border-2 border-accent text-accent rounded-lg font-medium hover:bg-accent/5 transition-colors cursor-pointer">
+                View All Lastest Updates
+              </button>
+            </Link>
           </div>
         )}
       </div>

@@ -54,7 +54,7 @@ export default function NeswsDetail({ article }: { article: any }) {
           </div>
 
           {/* Featured Image */}
-          <div className="rounded-xl overflow-hidden mb-12 h-96">
+          <div className="rounded-xl overflow-hidden mb-12 h-full">
             <img
               src={article.image_url || "/placeholder.svg"}
               alt={article.title}

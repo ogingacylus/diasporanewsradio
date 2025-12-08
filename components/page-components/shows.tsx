@@ -31,7 +31,7 @@ export default function Shows({ shows }: { shows: any }) {
           {shows.map((show: any) => (
             <Link href={`/shows/${show.id}`} key={show.id}>
               <div className="group rounded-xl overflow-hidden border border-border hover:border-accent transition-all duration-300 hover:shadow-lg cursor-pointer h-full flex flex-col">
-                <div className="relative overflow-hidden h-48 bg-card">
+                <div className="relative overflow-hidden h-84 bg-card">
                   <img
                     src={show.image_url || "/placeholder.svg"}
                     alt={show.name}

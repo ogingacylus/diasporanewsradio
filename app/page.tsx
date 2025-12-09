@@ -18,6 +18,8 @@ import {
 import Wrapper from "@/components/wrapper";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const news = await fetchHomeNews();
   const events = await fetchHomeEvents();

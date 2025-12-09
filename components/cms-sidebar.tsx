@@ -80,7 +80,7 @@ export function CMSSidebar() {
         <Button
           onClick={handleLogout}
           variant="outline"
-          className="w-full justify-start gap-2 border-red-500/30 text-red-500 hover:bg-red-500/10 bg-transparent cursor-pointer mt-4"
+          className="w-full justify-start gap-2 border-white/30 text-white hover:bg-white/10 bg-transparent cursor-pointer mt-4"
         >
           <LogOut size={20} />
           Logout
@@ -120,7 +120,7 @@ export function CMSSidebar() {
             <Button
               onClick={handleLogout}
               variant="outline"
-              className="w-full justify-start gap-2 border-red-500/30 text-red-500 hover:bg-red-500/10 bg-transparent cursor-pointer mt-4"
+              className="w-full justify-start gap-2 border-white/30 text-white hover:bg-white/10 bg-transparent cursor-pointer mt-4"
             >
               <LogOut size={20} />
               Logout

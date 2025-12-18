@@ -19,6 +19,7 @@ import {
   Megaphone,
   MessageSquareDot,
   MessageCircleMore,
+  HeartHandshakeIcon,
 } from "lucide-react";
 
 export function CMSSidebar() {
@@ -50,6 +51,11 @@ export function CMSSidebar() {
       label: "Advertisers Messages",
       href: "/admin/advertisement",
       icon: MessageCircleMore,
+    },
+    {
+      label: "Health Coner",
+      href: "/admin/health-coner",
+      icon: HeartHandshakeIcon,
     },
   ];
 

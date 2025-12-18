@@ -136,6 +136,22 @@ export async function seedDatabase() {
         message VARCHAR(255) NOT NULL,
         created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
       )`;
+
+    await sql`
+      CREATE TABLE IF NOT EXISTS health (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        author VARCHAR(255),
+        slug VARCHAR(255) UNIQUE,
+        description TEXT,
+        image_url VARCHAR(500),
+        category VARCHAR(100),
+        published BOOLEAN DEFAULT false,
+        published_at TIMESTAMPTZ,
+        created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+      )
+    `;
     // Insert sample data
     // await sql`
     //   INSERT INTO shows (title, slug, description, host, schedule, genre, published)

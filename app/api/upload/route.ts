@@ -184,6 +184,12 @@ export async function POST(request: NextRequest) {
         uploadResult.gcsUri
       )} WHERE id=${Number(itemId)}`;
     }
+
+    if (type === "health") {
+      await sql`UPDATE health SET image_url=${String(
+        uploadResult.gcsUri
+      )} WHERE id=${Number(itemId)}`;
+    }
     // Return success response
     return NextResponse.json({
       success: true,

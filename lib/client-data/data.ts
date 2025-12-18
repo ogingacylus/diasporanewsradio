@@ -182,6 +182,26 @@ export async function fetchMedia() {
   }
 }
 
+export async function fetchHealth() {
+  try {
+    const data =
+      await sql`SELECT * FROM health WHERE published=true ORDER BY created_at DESC`;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function fetchHealthById(id: number) {
+  try {
+    const data =
+      await sql`SELECT * FROM health WHERE published=true AND id=${id}`;
+    return data[0];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function fetchTemplate() {
   try {
     const data =

@@ -8,3 +8,12 @@ export async function fetchShows() {
     console.log(error);
   }
 }
+
+export async function fetchHealth() {
+  try {
+    const data = await sql`SELECT * FROM health ORDER BY created_at DESC`;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

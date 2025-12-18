@@ -51,6 +51,10 @@ export async function DELETE(
     if (type === "marketing") {
       await sql`UPDATE marketing SET image_url=${null} WHERE id=${itemId}`;
     }
+
+    if (type === "health") {
+      await sql`UPDATE health SET image_url=${null} WHERE id=${itemId}`;
+    }
     NextResponse.json({ message: `deleted.` });
 
     return NextResponse.json({ success: true });

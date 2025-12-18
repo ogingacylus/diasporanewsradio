@@ -50,6 +50,7 @@ export function Navigation() {
       { name: "Advice and Inspiration", href: "/advice" },
       { name: "Media Hub", href: "/media" },
       { name: "Advertise", href: "/marketing" },
+      { name: "Health Coner", href: "/health" },
     ],
   };
 
@@ -169,6 +170,12 @@ export function Navigation() {
                 ))}
               </div>
             </div>
+            <Link
+              href="/health"
+              className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors"
+            >
+              Health Coner
+            </Link>
             <Link
               href="/#about"
               className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors"
@@ -356,6 +363,12 @@ export function Navigation() {
                 </div>
               )}
             </div>
+            <Link
+              href="/health"
+              className="block px-4 py-2 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded"
+            >
+              Health
+            </Link>
             <Link
               href="/#about"
               className="block px-4 py-2 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary/80 transition-colors rounded"

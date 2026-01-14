@@ -17,6 +17,10 @@ export default function HealthDetail({ article }: { article: any }) {
     }
   }, []);
 
+  const str = article.description;
+  const split = str.split("\n\n");
+  console.log(split);
+
   return (
     <>
       <div className="pt-24 pb-20">
@@ -24,8 +28,7 @@ export default function HealthDetail({ article }: { article: any }) {
           {/* Article Header */}
           <Link
             href="/health"
-            className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium mb-8 mt-2"
-          >
+            className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium mb-8 mt-2">
             <ArrowLeft size={18} />
             Back to Health Articles
           </Link>
@@ -67,48 +70,10 @@ export default function HealthDetail({ article }: { article: any }) {
             {article.description
               .split("\n\n")
               .map((paragraph: any, index: any) => {
-                if (paragraph.startsWith("**")) {
-                  const lines = paragraph?.split("\n");
-                  return (
-                    <div key={index} className="mb-6">
-                      {lines.map((line: any, lineIndex: any) => {
-                        if (line.startsWith("**") && line.endsWith("**")) {
-                          return (
-                            <h3
-                              key={lineIndex}
-                              className="text-lg font-bold text-foreground mt-4 mb-2"
-                            >
-                              {line.replace(/\*\*/g, "")}
-                            </h3>
-                          );
-                        }
-                        if (line.startsWith("-")) {
-                          return (
-                            <li
-                              key={lineIndex}
-                              className="text-muted-foreground leading-relaxed ml-6"
-                            >
-                              {line.replace("-", "").trim()}
-                            </li>
-                          );
-                        }
-                        return (
-                          <p
-                            key={lineIndex}
-                            className="text-muted-foreground leading-relaxed"
-                          >
-                            {line}
-                          </p>
-                        );
-                      })}
-                    </div>
-                  );
-                }
                 return (
                   <p
                     key={index}
-                    className="text-lg text-muted-foreground leading-relaxed mb-6"
-                  >
+                    className="text-lg text-muted-foreground leading-relaxed mb-6">
                     {paragraph}
                   </p>
                 );

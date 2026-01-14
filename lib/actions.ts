@@ -17,7 +17,7 @@ export async function deleteItem(id: number, table: string, path: string) {
 export async function createHealthItem(formData: FormData) {
   const title = formData.get("title") as string;
   const author = formData.get("author") as string;
-  const description = formData.get("description") as string;
+  const description: any = formData.get("description");
   const published = formData.get("published");
 
   const isPublished = published ? true : false;
@@ -30,6 +30,10 @@ export async function createHealthItem(formData: FormData) {
     console.log(error);
     return { success: false };
   }
+}
+
+export async function revalidateHealth() {
+  revalidatePath("/admin/health-coner");
 }
 
 export async function updateHealthItem(formData: FormData) {

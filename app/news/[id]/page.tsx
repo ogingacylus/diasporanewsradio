@@ -1,7 +1,7 @@
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import Link from "next/link";
-import { fetchNewsById } from "@/lib/client-data/data";
+import { fetchHealthById, fetchNewsById } from "@/lib/client-data/data";
 import NeswsDetail from "@/components/page-components/news-details";
 import { Loader } from "@/components/loader";
 import { Suspense } from "react";
@@ -15,6 +15,7 @@ export default async function NewsDetailPage(props: {
   const id = params.id;
 
   const news = await fetchNewsById(id);
+
   if (!news) {
     return (
       <>
@@ -28,8 +29,7 @@ export default async function NewsDetailPage(props: {
           </p>
           <Link
             href="/news"
-            className="inline-block px-6 py-2 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
-          >
+            className="inline-block px-6 py-2 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity">
             View All News
           </Link>
         </div>

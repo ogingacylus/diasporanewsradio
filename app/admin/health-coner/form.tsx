@@ -11,7 +11,11 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { createHealthItem, updateHealthItem } from "@/lib/actions";
+import {
+  createHealthItem,
+  revalidateHealth,
+  updateHealthItem,
+} from "@/lib/actions";
 
 export function NewsForm({
   formData,
@@ -51,34 +55,69 @@ export function NewsForm({
     e.preventDefault();
     setIsLoading(true);
 
-    const form = new FormData(e.currentTarget);
-    const res = await createHealthItem(form);
-
-    if (res.success) {
-      resetForm();
+    try {
+      const response = await fetch("/api/health", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        await revalidateHealth();
+        resetForm();
+        setIsLoading(false);
+        setIsFormDialogOpen(false);
+      } else {
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error("Failed to create event:", error);
       setIsLoading(false);
-      setIsFormDialogOpen(false);
     }
-    setIsLoading(false);
+
+    // const form = new FormData(e.currentTarget);
+    // const res = await createHealthItem(form);
+
+    // if (res.success) {
+    //   resetForm();
+    //   setIsLoading(false);
+    //   setIsFormDialogOpen(false);
+    // }
+    // setIsLoading(false);
   };
 
   const handleEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-
-    const form = new FormData(e.currentTarget);
-    const res = await updateHealthItem(form);
-
-    if (res.success) {
-      resetForm();
+    try {
+      const response = await fetch(`/api/admin/health/${formData?.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        await revalidateHealth();
+        resetForm();
+        setIsLoading(false);
+        setIsFormDialogOpen(false);
+      }
+    } catch (error) {
+      console.error("Failed to create event:", error);
       setIsLoading(false);
-      setIsFormDialogOpen(false);
-      return;
     }
-    setIsLoading(false);
-    return;
+    // const form = new FormData(e.currentTarget);
+    // const res = await updateHealthItem(form);
+
+    // if (res.success) {
+    //   resetForm();
+    //   setIsLoading(false);
+    //   setIsFormDialogOpen(false);
+    //   return;
+    // }
+    // setIsLoading(false);
+    // return;
   };
 
+  console.log(formData.description);
   return (
     <Dialog open={isFormDialogOpen} onOpenChange={handleModalClose}>
       <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-gray-50">
@@ -91,8 +130,7 @@ export function NewsForm({
         </h2>
         <form
           onSubmit={initialData ? handleEdit : handleSubmit}
-          className="space-y-4"
-        >
+          className="space-y-4">
           <div className="flex flex-col md:flex-row w-full gap-4">
             <div className="w-full">
               <label className="block text-sm font-medium mb-2">Title</label>
@@ -164,8 +202,7 @@ export function NewsForm({
           <div className="flex gap-2">
             <Button
               type="submit"
-              className="bg-accent hover:bg-accent/90 cursor-pointer"
-            >
+              className="bg-accent hover:bg-accent/90 cursor-pointer">
               {initialData ? "Edit" : "Create Item"}
               {isLoading && (
                 <div className="h-5 w-5 animate-spin rounded-full border-2 border-gray-100 border-t-transparent"></div>
@@ -179,8 +216,7 @@ export function NewsForm({
                 resetForm();
                 setInitialData(false);
                 setIsFormDialogOpen(false);
-              }}
-            >
+              }}>
               Cancel
             </Button>
           </div>

@@ -108,6 +108,7 @@ export function NewsForm({
     }
   };
 
+  console.log(formData.description);
   return (
     <Dialog open={isFormDialogOpen} onOpenChange={handleModalClose}>
       <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-gray-50">
@@ -120,8 +121,7 @@ export function NewsForm({
         </h2>
         <form
           onSubmit={initialData ? handleEdit : handleSubmit}
-          className="space-y-4"
-        >
+          className="space-y-4">
           <div className="flex flex-col md:flex-row w-full gap-4">
             <div className="w-full">
               <label className="block text-sm font-medium mb-2">Title</label>
@@ -195,8 +195,7 @@ export function NewsForm({
           <div className="flex gap-2">
             <Button
               type="submit"
-              className="bg-accent hover:bg-accent/90 cursor-pointer"
-            >
+              className="bg-accent hover:bg-accent/90 cursor-pointer">
               {initialData ? "Edit Event" : "Create Event"}
               {isLoading && (
                 <div className="h-5 w-5 animate-spin rounded-full border-2 border-gray-100 border-t-transparent"></div>
@@ -210,8 +209,7 @@ export function NewsForm({
                 resetForm();
                 setInitialData(false);
                 setIsFormDialogOpen(false);
-              }}
-            >
+              }}>
               Cancel
             </Button>
           </div>

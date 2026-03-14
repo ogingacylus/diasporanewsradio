@@ -3,7 +3,10 @@ import sql from "@/lib/db";
 import { type NextRequest, NextResponse } from "next/server";
 
 const credentials = JSON.parse(
-  Buffer.from(process.env.GOOGLE_CLOUD_CREDENTIALS_BASE64!, "base64").toString()
+  Buffer.from(
+    process.env.GOOGLE_CLOUD_CREDENTIALS_BASE64!,
+    "base64",
+  ).toString(),
 );
 const storage = new Storage({
   projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
@@ -12,26 +15,37 @@ const storage = new Storage({
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { url: string } }
+  { params }: { params: { url: string } },
 ) {
   try {
     const body = await request.json();
     const imgUrl1 = String(body?.imageUrl).split(
-      `${process.env.GOOGLE_CLOUD_STORAGE_BUCKET}/`
+      `${process.env.GOOGLE_CLOUD_STORAGE_BUCKET}/`,
     );
     const itemId = body?.itemId;
     const type = body?.type;
+    const isPara = body?.isPara;
+    const index = body?.index;
+    const paragraphItems: any = body?.paragraphItems;
 
     const bucketName: any = process.env.GOOGLE_CLOUD_STORAGE_BUCKET;
 
     await storage.bucket(bucketName).file(imgUrl1[1]).delete();
+
+    if (isPara === "true") {
+      paragraphItems[Number(index)].url = "";
+    }
 
     if (type === "event") {
       await sql`UPDATE events SET image_url=${null} WHERE id=${itemId}`;
     }
 
     if (type === "news") {
-      await sql`UPDATE news SET image_url=${null} WHERE id=${itemId}`;
+      if (isPara === "true") {
+        await sql`UPDATE news SET paragraphs=${JSON.stringify(paragraphItems)} WHERE id=${itemId}`;
+      } else {
+        await sql`UPDATE news SET image_url=${null} WHERE id=${itemId}`;
+      }
     }
 
     if (type === "shows") {
@@ -62,7 +76,7 @@ export async function DELETE(
     console.log(error);
     return NextResponse.json(
       { error: "Failed to delete event" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

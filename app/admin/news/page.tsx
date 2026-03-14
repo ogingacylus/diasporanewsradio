@@ -8,10 +8,11 @@ import { CMSSidebar } from "@/components/cms-sidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Trash2, Edit2, Plus, ImageIcon } from "lucide-react";
+import { Trash2, Edit2, Plus, ImageIcon, UploadCloud } from "lucide-react";
 import { PictureDialog } from "../picture-dialog";
 import { FileUpload } from "../file-upload";
 import { NewsForm } from "./form";
+import { FilesModal } from "../files-modal";
 
 interface NewsItem {
   id: number;
@@ -29,6 +30,7 @@ export default function AdminNewsPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
+  const [isFilesDialogOpen, setIsFilesDialogOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [formData, setFormData] = useState({
     id: 0,
@@ -38,6 +40,7 @@ export default function AdminNewsPage() {
     category: "",
     image_url: "",
     published: false,
+    paragraphs: [{ description: "", url: "" }],
   });
 
   const handleUploadComplete = (result: any) => {
@@ -58,6 +61,7 @@ export default function AdminNewsPage() {
       const response = await fetch("/api/admin/news");
       if (response.ok) {
         const data = await response.json();
+
         setNews(data);
       }
     } catch (error) {
@@ -67,7 +71,13 @@ export default function AdminNewsPage() {
     }
   };
 
-  const handleDeleteImage = async (url: string, itemId: any) => {
+  const handleDeleteImage = async (
+    url: string,
+    itemId: any,
+    isPara: any,
+    index: any,
+    paragraphItems: any,
+  ) => {
     if (!confirm("Are you sure?")) return;
     try {
       const response = await fetch(`/api/delete-image/`, {
@@ -76,6 +86,9 @@ export default function AdminNewsPage() {
           imageUrl: url,
           itemId: itemId,
           type: "news",
+          isPara: isPara,
+          index: String(index),
+          paragraphItems: paragraphItems,
         }),
       });
       if (response.ok) {
@@ -87,11 +100,20 @@ export default function AdminNewsPage() {
   };
 
   const handleDelete = async (id: number, item: any) => {
-    console.log("This id", id);
     if (item?.image_url) {
       alert("Delete news picture first!");
       return;
     }
+
+    const para = item.paragraphs?.filter(
+      (par: any, index: number) => par.url?.length > 2,
+    );
+
+    if (para.length > 0) {
+      alert("Delete paragraph pictures first!");
+      return;
+    }
+
     if (!confirm("Are you sure?")) return;
     try {
       const response = await fetch(`/api/admin/news/${id}`, {
@@ -116,8 +138,7 @@ export default function AdminNewsPage() {
             <h1 className="text-md md:text-4xl font-bold">News & Updates</h1>
             <Button
               onClick={() => setIsFormDialogOpen(true)}
-              className="bg-accent hover:bg-accent/90 gap-2 cursor-pointer"
-            >
+              className="bg-accent hover:bg-accent/90 gap-2 cursor-pointer">
               <Plus size={20} />
               New Article
             </Button>
@@ -142,83 +163,64 @@ export default function AdminNewsPage() {
               news.map((item: any) => (
                 <Card
                   key={item.id}
-                  className="p-4 border-primary/20 flex justify-between items-center"
-                >
-                  <PictureDialog
-                    url={imageUrl}
-                    isDialogOpen={isDialogOpen}
-                    setIsDialogOpen={setIsDialogOpen}
-                  />
-                  {item?.image_url ? (
-                    <div className="space-y-2 w-full md:w-96">
-                      <div className="flex items-center gap-2 p-3 bg-green-50 rounded-lg border border-green-200">
-                        <ImageIcon className="h-5 w-5 text-green-600" />
-                        <div className="flex-1">
-                          <p className="text-sm font-medium text-green-800">
-                            Picture uploaded
-                          </p>
-                          <button
-                            onClick={() => {
-                              setImageUrl(item.image_url);
-                              setIsDialogOpen(true);
-                            }}
-                            className="text-xs text-green-600 hover:underline cursor-pointer"
-                          >
-                            View picture
-                          </button>
-                        </div>
-                        <Button
-                          type="button"
-                          size="sm"
-                          className="text-red-600 hover:text-red-700 bg-red-200"
-                          onClick={() => {
-                            handleDeleteImage(item.image_url, item.id);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <FileUpload
-                      itemId={String(item.id)}
-                      type="news"
-                      userId="IMG"
-                      onUploadComplete={handleUploadComplete}
-                    />
-                  )}
+                  className="p-4 border-primary/20 flex justify-between items-center">
                   <div>
                     <h3 className="font-bold">{item.title}</h3>
                     <p className="text-sm text-muted-foreground">
                       {item.category}
                     </p>
+
                     <p className="text-xs text-muted-foreground">
                       {new Date(item.created_at).toLocaleDateString()}
+                    </p>
+                    <p
+                      className={`text-md font-bold ${item.published ? "text-green-500" : "text-red-500"}`}>
+                      {item.published ? "Published" : "Not Published"}
                     </p>
                   </div>
                   <div className="flex gap-2">
                     <Button
                       size="sm"
                       variant="outline"
-                      className="gap-1 bg-transparent"
+                      className="gap-1 text-green-500 hover:bg-green-500/90 bg-transparent"
                       onClick={() => {
                         setFormData(item);
                         setIsFormDialogOpen(true);
                         setInitialData(true);
-                      }}
-                    >
+                      }}>
                       <Edit2 size={16} />
                       Edit
                     </Button>
                     <Button
                       size="sm"
                       variant="outline"
-                      className="gap-1 text-red-500 hover:bg-red-500/10 bg-transparent"
-                      onClick={() => handleDelete(item.id, item)}
-                    >
+                      className="gap-1 text-blue-500 hover:bg-blue-500/90 bg-transparent cursor-pointer"
+                      onClick={() => setIsFilesDialogOpen(true)}>
+                      <UploadCloud size={16} />
+                      Upload files
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="gap-1 text-red-500 hover:bg-red-500/90 bg-transparent"
+                      onClick={() => handleDelete(item.id, item)}>
                       <Trash2 size={16} />
                       Delete
                     </Button>
+                    <FilesModal
+                      isFilesDialogOpen={isFilesDialogOpen}
+                      setIsFilesDialogOpen={setIsFilesDialogOpen}
+                      item={item}
+                      type="news"
+                      userId="IMG"
+                      onUploadComplete={handleUploadComplete}
+                      isDialogOpen={isDialogOpen}
+                      setIsDialogOpen={setIsDialogOpen}
+                      imageUrl={imageUrl}
+                      setImageUrl={setImageUrl}
+                      handleDeleteImage={handleDeleteImage}
+                      handleUploadComplete={handleUploadComplete}
+                    />
                   </div>
                 </Card>
               ))

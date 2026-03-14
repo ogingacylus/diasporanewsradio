@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     if (!checkRateLimit(clientIp)) {
       return NextResponse.json(
         { error: "Rate limit exceeded. Please try again later." },
-        { status: 429 }
+        { status: 429 },
       );
     }
 
@@ -64,7 +64,14 @@ export async function POST(request: NextRequest) {
     const type = formData.get("type") as string;
     const itemId = formData.get("itemId") as string;
     const fileName = formData.get("fileName") as string;
+    const isPara = formData.get("isPara") as string;
+    const paraIndex = formData.get("paraIndex") as string;
+    const paragraphItems = formData.get("paragraphItems") as any;
+    const newParaItems = JSON.parse(paragraphItems);
 
+    // if (1 === 1) {
+    //   return NextResponse.json({ error: "No file provided" }, { status: 400 });
+    // }
     // Validate required fields
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
@@ -73,7 +80,7 @@ export async function POST(request: NextRequest) {
     if (!userId) {
       return NextResponse.json(
         { error: "User ID is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -82,10 +89,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error: `File size ${(file.size / 1024 / 1024).toFixed(
-            1
+            1,
           )}MB exceeds 20MB limit`,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -101,7 +108,7 @@ export async function POST(request: NextRequest) {
             file.type
           } not supported. Allowed types: ${ALLOWED_TYPES.join(", ")}`,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -117,8 +124,8 @@ export async function POST(request: NextRequest) {
     const fileExtension = fileName
       ? fileName.split(".").pop() || "bin"
       : file.name
-      ? file.name.split(".").pop() || "bin"
-      : "bin";
+        ? file.name.split(".").pop() || "bin"
+        : "bin";
     const uniqueFileName = `${fileId}.${fileExtension}`;
 
     // Convert file to buffer
@@ -131,7 +138,7 @@ export async function POST(request: NextRequest) {
       fileBuffer,
       userId,
       uniqueFileName,
-      file.type || "application/octet-stream"
+      file.type || "application/octet-stream",
     );
 
     if (!uploadResult.success) {
@@ -140,54 +147,60 @@ export async function POST(request: NextRequest) {
           error: "Upload failed",
           details: uploadResult.error,
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
     // Update db
+    // EVENT
     if (type === "event") {
       await sql`UPDATE events SET image_url=${String(
-        uploadResult.gcsUri
+        uploadResult.gcsUri,
       )} WHERE id=${Number(itemId)}`;
     }
-
+    // NEWS
     if (type === "news") {
-      await sql`UPDATE news SET image_url=${String(
-        uploadResult.gcsUri
-      )} WHERE id=${Number(itemId)}`;
+      if (isPara === "true") {
+        newParaItems[Number(paraIndex)].url = `${String(uploadResult.gcsUri)}`;
+        await sql`UPDATE news SET paragraphs=${JSON.stringify(newParaItems)} WHERE id=${Number(itemId)}`;
+      } else {
+        await sql`UPDATE news SET image_url=${String(
+          uploadResult.gcsUri,
+        )} WHERE id=${Number(itemId)}`;
+      }
     }
 
     if (type === "shows") {
       await sql`UPDATE shows SET image_url=${String(
-        uploadResult.gcsUri
+        uploadResult.gcsUri,
       )} WHERE id=${Number(itemId)}`;
     }
     if (type === "testimonials") {
       await sql`UPDATE testimonials SET image_url=${String(
-        uploadResult.gcsUri
+        uploadResult.gcsUri,
       )} WHERE id=${Number(itemId)}`;
     }
 
     if (type === "stories") {
       await sql`UPDATE stories SET image_url=${String(
-        uploadResult.gcsUri
+        uploadResult.gcsUri,
       )} WHERE id=${Number(itemId)}`;
     }
 
     if (type === "media") {
       await sql`UPDATE media SET image_url=${String(
-        uploadResult.gcsUri
+        uploadResult.gcsUri,
       )} WHERE id=${Number(itemId)}`;
     }
 
     if (type === "marketing") {
       await sql`UPDATE marketing SET image_url=${String(
-        uploadResult.gcsUri
+        uploadResult.gcsUri,
       )} WHERE id=${Number(itemId)}`;
     }
 
     if (type === "health") {
       await sql`UPDATE health SET image_url=${String(
-        uploadResult.gcsUri
+        uploadResult.gcsUri,
       )} WHERE id=${Number(itemId)}`;
     }
     // Return success response
@@ -212,7 +225,7 @@ export async function POST(request: NextRequest) {
         details: error.message,
         errorId,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

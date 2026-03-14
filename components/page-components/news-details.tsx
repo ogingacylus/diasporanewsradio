@@ -65,6 +65,40 @@ export default function NeswsDetail({ article }: { article: any }) {
           </div>
 
           {/* Article Content */}
+          {article.description ? (
+            <div className="prose prose-invert max-w-none mb-12">
+              {article.description
+                .split("\n\n")
+                .map((paragraph: any, index: any) => {
+                  return (
+                    <p
+                      key={index}
+                      className="text-lg text-muted-foreground leading-relaxed mb-6">
+                      {paragraph}
+                    </p>
+                  );
+                })}
+            </div>
+          ) : (
+            <>
+              {article.paragraphs?.map((item: any, index: number) => (
+                <div key={index}>
+                  {index !== 0 && item.url && (
+                    <div className="rounded-xl overflow-hidden mb-12 h-full">
+                      <img
+                        src={item.url || "/placeholder.svg"}
+                        alt={article.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="prose prose-invert max-w-none mb-4">
+                    {item.description}
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
           <div className="prose prose-invert max-w-none mb-12">
             {article.description
               .split("\n\n")

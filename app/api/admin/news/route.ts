@@ -6,11 +6,15 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     const news = await sql`SELECT * FROM news ORDER BY created_at DESC`;
-    return NextResponse.json(news);
+    const newsData = news.map((item: any, index: number) => ({
+      ...item,
+      paragraphs: JSON.parse(item.paragraphs),
+    }));
+    return NextResponse.json(newsData);
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to fetch news" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

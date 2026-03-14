@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FileUpload } from "./file-upload";
+import { isPagesAPIRouteMatch } from "next/dist/server/route-matches/pages-api-route-match";
 
 interface UploadResult {
   success: boolean;
@@ -20,19 +21,27 @@ export const useFileUpload = () => {
     userId: string,
     type: string,
     itemId: string,
-    fileName?: string
+    isPara: string,
+    paraIndex: string,
+    paragraphItems: any,
+    fileName?: string,
   ): Promise<UploadResult> => {
     setIsUploading(true);
     setUploadProgress(0);
     setUploadResult(null);
 
     try {
+      const paraItems = JSON.stringify(paragraphItems);
       // Create form data
       const formData = new FormData();
       formData.append("file", file);
       formData.append("userId", userId);
       formData.append("type", type);
       formData.append("itemId", itemId);
+      formData.append("isPara", isPara);
+      formData.append("paraIndex", paraIndex);
+      formData.append("paragraphItems", paraItems);
+
       if (fileName) {
         formData.append("fileName", fileName);
       }
@@ -79,8 +88,9 @@ export const useFileUpload = () => {
             const errorResponse = JSON.parse(xhr.responseText);
             reject(
               new Error(
-                errorResponse.error || `Upload failed with status ${xhr.status}`
-              )
+                errorResponse.error ||
+                  `Upload failed with status ${xhr.status}`,
+              ),
             );
           } catch (parseError) {
             reject(new Error(`Upload failed with status ${xhr.status}`));

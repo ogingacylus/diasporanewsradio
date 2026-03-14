@@ -86,6 +86,8 @@ export async function fetchNewsById(id: number) {
   try {
     const data =
       await sql`SELECT * FROM news WHERE published=true AND id=${id}`;
+    data[0].paragraphs = JSON.parse(data[0].paragraphs);
+    console.log(data);
     return data[0];
   } catch (error) {
     console.log(error);

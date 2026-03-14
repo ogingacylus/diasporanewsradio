@@ -10,6 +10,10 @@ interface FileUploadProps {
   onUploadComplete?: (result: any) => void;
   acceptedTypes?: string[];
   maxFileSize?: number;
+  isPara: string;
+  paraIndex: string;
+  paragraphItems: any;
+  paraPicsCount: any;
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -19,6 +23,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   onUploadComplete,
   acceptedTypes = ["audio/*", "image/*", ".pdf"],
   maxFileSize = 20 * 1024 * 1024, // 20MB
+  isPara,
+  paraIndex,
+  paragraphItems,
+  paraPicsCount,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -28,12 +36,18 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     useFileUpload();
 
   const handleFileSelect = (file: File) => {
+    if (isPara === "true") {
+      if (paraPicsCount === 3) {
+        alert("Maximum limit for paragraph pictures reached!!");
+        return;
+      }
+    }
     // Validate file size
     if (file.size > maxFileSize) {
       alert(
         `File size ${(file.size / 1024 / 1024).toFixed(1)}MB exceeds ${
           maxFileSize / 1024 / 1024
-        }MB limit`
+        }MB limit`,
       );
       return;
     }
@@ -43,6 +57,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (isPara === "true") {
+      if (paraPicsCount === 3) {
+        alert("Maximum limit for paragraph pictures reached!!");
+        return;
+      }
+    }
     const file = event.target.files?.[0];
     if (file) {
       handleFileSelect(file);
@@ -52,6 +72,13 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   const handleDrag = (event: React.DragEvent) => {
     event.preventDefault();
     event.stopPropagation();
+
+    if (isPara === "true") {
+      if (paraPicsCount === 3) {
+        alert("Maximum limit for paragraph pictures reached!!");
+        return;
+      }
+    }
     if (event.type === "dragenter" || event.type === "dragover") {
       setDragActive(true);
     } else if (event.type === "dragleave") {
@@ -62,6 +89,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   const handleDrop = (event: React.DragEvent) => {
     event.preventDefault();
     event.stopPropagation();
+    if (isPara === "true") {
+      if (paraPicsCount === 3) {
+        alert("Maximum limit for paragraph pictures reached!!");
+        return;
+      }
+    }
     setDragActive(false);
 
     const file = event.dataTransfer.files?.[0];
@@ -73,7 +106,15 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   const handleUpload = async () => {
     if (!selectedFile) return;
 
-    const result = await uploadFile(selectedFile, userId, type, itemId);
+    const result = await uploadFile(
+      selectedFile,
+      userId,
+      type,
+      itemId,
+      isPara,
+      paraIndex,
+      paragraphItems,
+    );
 
     if (result.success && onUploadComplete) {
       onUploadComplete(result);
@@ -89,9 +130,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-2 rounded-lg shadow-lg">
-      <h3 className="text-lg font-semibold mb-4">Upload Picture</h3>
-
+    <div className="w-full max-w-md mx-auto p-2">
       {/* Drop Zone */}
       <div
         className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
@@ -102,8 +141,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
-        onDrop={handleDrop}
-      >
+        onDrop={handleDrop}>
         <input
           ref={fileInputRef}
           type="file"
@@ -126,8 +164,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="text-blue-500 hover:text-blue-600 font-medium"
-              >
+                className="text-blue-500 hover:text-blue-600 font-medium">
                 browse
               </button>
             </p>
@@ -161,8 +198,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             uploadResult.success
               ? "bg-green-50 text-green-800"
               : "bg-red-50 text-red-800"
-          }`}
-        >
+          }`}>
           {uploadResult.success ? (
             <div>
               <p className="font-medium">Upload successful!</p>
@@ -179,8 +215,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         {selectedFile && !isUploading && !uploadResult?.success && (
           <button
             onClick={handleUpload}
-            className="flex-1 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors"
-          >
+            className="flex-1 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors">
             Upload File
           </button>
         )}
@@ -189,8 +224,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           <button
             onClick={handleReset}
             disabled={isUploading}
-            className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50 transition-colors disabled:opacity-50"
-          >
+            className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50 transition-colors disabled:opacity-50">
             Reset
           </button>
         )}

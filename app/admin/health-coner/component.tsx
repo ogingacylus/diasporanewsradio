@@ -139,7 +139,7 @@ export default function AdminHealthPage({ news }: { news: any }) {
             ) : news.length === 0 ? (
               <p className="text-muted-foreground">No articles yet</p>
             ) : (
-              news.map((item: any) => (
+              news?.map((item: any) => (
                 <Card
                   key={item.id}
                   className="p-4 border-primary/20 flex justify-between items-center">

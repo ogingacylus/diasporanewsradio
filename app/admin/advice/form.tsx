@@ -135,7 +135,7 @@ export function AdviceForm({
     }
     let currentItems = paragraphs;
     if (currentItems.length > 1) {
-      setParagraphs(currentItems.filter((_: any, i: any) => i !== index));
+      setParagraphs(currentItems?.filter((_: any, i: any) => i !== index));
     }
   }
 
@@ -144,7 +144,7 @@ export function AdviceForm({
     index: number,
   ) => {
     const { value } = e.target;
-    const updatedItems = paragraphs.map((item: any, idx: any) =>
+    const updatedItems = paragraphs?.map((item: any, idx: any) =>
       index === idx ? { ...item, description: value } : item,
     );
 

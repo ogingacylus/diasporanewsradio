@@ -144,7 +144,7 @@ export function NewsForm({
     }
     let currentItems = paragraphs;
     if (currentItems.length > 1) {
-      setParagraphs(currentItems.filter((_: any, i: any) => i !== index));
+      setParagraphs(currentItems?.filter((_: any, i: any) => i !== index));
     }
   }
 
@@ -153,7 +153,7 @@ export function NewsForm({
     index: number,
   ) => {
     const { value } = e.target;
-    const updatedItems = paragraphs.map((item: any, idx: any) =>
+    const updatedItems = paragraphs?.map((item: any, idx: any) =>
       index === idx ? { ...item, description: value } : item,
     );
 

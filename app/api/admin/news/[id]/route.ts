@@ -35,7 +35,7 @@ export async function PUT(
     const { title, author, description, published, category, paragraphs } =
       body;
     const para = JSON.stringify(paragraphs);
-    await sql`UPDATE news SET title=${title}, author=${author} , description=${description},
+    await sql`UPDATE news SET title=${title}, author=${author} , 
      category=${category}, published=${published}, paragraphs=${para} WHERE id = ${id}`;
 
     return NextResponse.json({ success: true });

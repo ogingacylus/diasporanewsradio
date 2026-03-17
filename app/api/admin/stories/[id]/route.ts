@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const param = await params;
@@ -15,14 +15,14 @@ export async function DELETE(
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to delete show" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const param = await params;
@@ -40,9 +40,13 @@ export async function PUT(
       published,
       created_at,
       updated_at,
+      paragraphs,
     } = body;
+
+    const para = JSON.stringify(paragraphs);
+
     await sql`UPDATE stories SET title=${title}, excerpt=${excerpt}, author=${author}, category=${category}, 
-    paragraph1=${paragraph1}, paragraph2=${paragraph2}, paragraph3=${paragraph3}, updated_at=${new Date()}, published=${published} WHERE id = ${id}`;
+   updated_at=${new Date()}, published=${published}, paragraphs=${para} WHERE id = ${id}`;
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -39,8 +39,7 @@ export default function StoriesDetail({ story }: { story: any }) {
             </p>
             <Link
               href="/stories"
-              className="inline-block px-6 py-2 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center"
-            >
+              className="inline-block px-6 py-2 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center">
               View All Stories
             </Link>
           </div>
@@ -51,8 +50,7 @@ export default function StoriesDetail({ story }: { story: any }) {
             {/* Article Header */}
             <Link
               href="/stories"
-              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium mb-8"
-            >
+              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium mb-8">
               <ArrowLeft size={18} />
               Back to Stories
             </Link>
@@ -86,72 +84,83 @@ export default function StoriesDetail({ story }: { story: any }) {
             </div>
 
             {/* Article Content */}
-            <div className="prose prose-invert max-w-none mb-12">
-              {story.paragraph1
-                .split("\n\n")
-                .map((paragraph: any, index: any) => {
-                  if (paragraph.startsWith("**")) {
-                    const lines = paragraph?.split("\n");
-                    return (
-                      <div key={index} className="mb-6">
-                        {lines.map((line: any, lineIndex: any) => {
-                          if (line.startsWith("**") && line.endsWith("**")) {
-                            return (
-                              <h3
-                                key={lineIndex}
-                                className="text-lg font-bold text-foreground mt-4 mb-2"
-                              >
-                                {line.replace(/\*\*/g, "")}
-                              </h3>
-                            );
-                          }
-                          if (line.startsWith("-")) {
-                            return (
-                              <li
-                                key={lineIndex}
-                                className="text-muted-foreground leading-relaxed ml-6"
-                              >
-                                {line.replace("-", "").trim()}
-                              </li>
-                            );
-                          }
-                          return (
-                            <p
-                              key={lineIndex}
-                              className="text-muted-foreground leading-relaxed"
-                            >
-                              {line}
-                            </p>
-                          );
-                        })}
-                      </div>
-                    );
-                  }
-                  return (
-                    <p
-                      key={index}
-                      className="text-lg text-muted-foreground leading-relaxed mb-6"
-                    >
-                      {paragraph}
-                    </p>
-                  );
-                })}
-            </div>
-            {story.paragraph2 && (
+            {story.description ? (
               <div className="prose prose-invert max-w-none mb-12">
-                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  {" "}
-                  {story.paragraph2}
-                </p>
+                {story.description
+                  .split("\n\n")
+                  .map((paragraph: any, index: any) => {
+                    return (
+                      <p
+                        key={index}
+                        className="text-lg text-muted-foreground leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                    );
+                  })}
+              </div>
+            ) : (
+              <>
+                {story.paragraphs?.map((item: any, index: number) => (
+                  <div key={index}>
+                    {index !== 0 && item.url && (
+                      <div className="rounded-xl overflow-hidden mb-12 h-full">
+                        <img
+                          src={item.url || "/placeholder.svg"}
+                          alt={story.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="prose prose-invert max-w-none mb-4">
+                      {item.description}
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+            {story.paragraph1 && (
+              <div className="prose prose-invert max-w-none mb-12">
+                {story?.paragraph1
+                  .split("\n\n")
+                  .map((paragraph: any, index: any) => {
+                    return (
+                      <p
+                        key={index}
+                        className="text-lg text-muted-foreground leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                    );
+                  })}
               </div>
             )}
-
+            {story.paragraph2 && (
+              <div className="prose prose-invert max-w-none mb-12">
+                {story?.paragraph2
+                  .split("\n\n")
+                  .map((paragraph: any, index: any) => {
+                    return (
+                      <p
+                        key={index}
+                        className="text-lg text-muted-foreground leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                    );
+                  })}
+              </div>
+            )}
             {story.paragraph3 && (
               <div className="prose prose-invert max-w-none mb-12">
-                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  {" "}
-                  {story.paragraph3}
-                </p>
+                {story?.paragraph3
+                  .split("\n\n")
+                  .map((paragraph: any, index: any) => {
+                    return (
+                      <p
+                        key={index}
+                        className="text-lg text-muted-foreground leading-relaxed mb-6">
+                        {paragraph}
+                      </p>
+                    );
+                  })}
               </div>
             )}
             {/* Share Section */}

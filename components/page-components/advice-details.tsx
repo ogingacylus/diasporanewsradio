@@ -28,8 +28,7 @@ export default function AdvicesDetail({ article }: { article: any }) {
           {/* Article Header */}
           <Link
             href="/advice"
-            className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium mb-8 mt-4"
-          >
+            className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium mb-8 mt-4">
             <ArrowLeft size={18} />
             Back to Advices
           </Link>
@@ -63,11 +62,32 @@ export default function AdvicesDetail({ article }: { article: any }) {
               </div>
               {/* Featured Image */}
               {/* Article Content */}
-              <div className="prose prose-invert max-w-none mb-12">
-                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  {article.content}
-                </p>
-              </div>
+              {/* Article Content */}
+              {article?.content ? (
+                <div className="prose prose-invert max-w-none mb-12">
+                  {article?.description
+                    ?.split("\n\n")
+                    ?.map((paragraph: any, index: any) => {
+                      return (
+                        <p
+                          key={index}
+                          className="text-lg text-muted-foreground leading-relaxed mb-6">
+                          {paragraph}
+                        </p>
+                      );
+                    })}
+                </div>
+              ) : (
+                <>
+                  {article?.paragraphs?.map((item: any, index: number) => (
+                    <div key={index}>
+                      <div className="prose prose-invert max-w-none mb-4">
+                        {item.description}
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
               {/* Share Section */}
               <div className="border-t border-border pt-8">
                 <div className="w-full flex flex-col gap-4 items-center justify-center gap-2 px-6 py-3 border border-border text-foreground rounded-lg font-medium hover:bg-card transition-colors">

@@ -99,19 +99,6 @@ export default function NeswsDetail({ article }: { article: any }) {
               ))}
             </>
           )}
-          <div className="prose prose-invert max-w-none mb-12">
-            {article.description
-              .split("\n\n")
-              .map((paragraph: any, index: any) => {
-                return (
-                  <p
-                    key={index}
-                    className="text-lg text-muted-foreground leading-relaxed mb-6">
-                    {paragraph}
-                  </p>
-                );
-              })}
-          </div>
 
           {/* Share Section */}
           <div className="border-t border-border pt-8">

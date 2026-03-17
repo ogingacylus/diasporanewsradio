@@ -17,7 +17,7 @@ export async function GET() {
     });
     return NextResponse.json(
       { error: "Failed to fetch shows. Please run /api/init-db" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -37,14 +37,8 @@ export async function POST(request: NextRequest) {
       published,
       created_at,
       updated_at,
+      paragraphs,
     } = body;
-
-    if (!title) {
-      return NextResponse.json(
-        { error: "Title and description are required" },
-        { status: 400 }
-      );
-    }
 
     const slug = title
       .toLowerCase()
@@ -52,17 +46,15 @@ export async function POST(request: NextRequest) {
       .replace(/\s+/g, "-");
     const date = new Date();
 
+    const para = JSON.stringify(paragraphs);
+
     const result = await sql`
       INSERT INTO stories (title,author,
       category,
       excerpt,
-      paragraph1,
-      paragraph2,
-      paragraph3,
       published,
       created_at,
-      updated_at) VALUES (${title}, ${author},${category}, ${excerpt}, ${paragraph1}, ${paragraph2}, 
-      ${paragraph3}, ${published}, ${date}, ${date})
+      updated_at, paragraphs) VALUES (${title}, ${author},${category}, ${excerpt}, ${published}, ${date}, ${date}, ${para})
     `;
 
     return NextResponse.json({ success: true }, { status: 201 });
@@ -70,7 +62,7 @@ export async function POST(request: NextRequest) {
     console.log(error);
     return NextResponse.json(
       { error: "Failed to create show" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

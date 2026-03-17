@@ -150,8 +150,12 @@ export async function POST(request: NextRequest) {
         { status: 500 },
       );
     }
+    if (isPara === "true") {
+      newParaItems[Number(paraIndex)].url = `${String(uploadResult.gcsUri)}`;
+    }
     // Update db
-    // EVENT
+    // 1. EVENT
+
     if (type === "event") {
       await sql`UPDATE events SET image_url=${String(
         uploadResult.gcsUri,
@@ -160,7 +164,6 @@ export async function POST(request: NextRequest) {
     // NEWS
     if (type === "news") {
       if (isPara === "true") {
-        newParaItems[Number(paraIndex)].url = `${String(uploadResult.gcsUri)}`;
         await sql`UPDATE news SET paragraphs=${JSON.stringify(newParaItems)} WHERE id=${Number(itemId)}`;
       } else {
         await sql`UPDATE news SET image_url=${String(
@@ -170,9 +173,13 @@ export async function POST(request: NextRequest) {
     }
 
     if (type === "shows") {
-      await sql`UPDATE shows SET image_url=${String(
-        uploadResult.gcsUri,
-      )} WHERE id=${Number(itemId)}`;
+      if (isPara === "true") {
+        await sql`UPDATE shows SET paragraphs=${JSON.stringify(newParaItems)} WHERE id=${Number(itemId)}`;
+      } else {
+        await sql`UPDATE shows SET image_url=${String(
+          uploadResult.gcsUri,
+        )} WHERE id=${Number(itemId)}`;
+      }
     }
     if (type === "testimonials") {
       await sql`UPDATE testimonials SET image_url=${String(
@@ -181,9 +188,13 @@ export async function POST(request: NextRequest) {
     }
 
     if (type === "stories") {
-      await sql`UPDATE stories SET image_url=${String(
-        uploadResult.gcsUri,
-      )} WHERE id=${Number(itemId)}`;
+      if (isPara === "true") {
+        await sql`UPDATE stories SET paragraphs=${JSON.stringify(newParaItems)} WHERE id=${Number(itemId)}`;
+      } else {
+        await sql`UPDATE stories SET image_url=${String(
+          uploadResult.gcsUri,
+        )} WHERE id=${Number(itemId)}`;
+      }
     }
 
     if (type === "media") {
@@ -199,9 +210,13 @@ export async function POST(request: NextRequest) {
     }
 
     if (type === "health") {
-      await sql`UPDATE health SET image_url=${String(
-        uploadResult.gcsUri,
-      )} WHERE id=${Number(itemId)}`;
+      if (isPara === "true") {
+        await sql`UPDATE health SET paragraphs=${JSON.stringify(newParaItems)} WHERE id=${Number(itemId)}`;
+      } else {
+        await sql`UPDATE health SET image_url=${String(
+          uploadResult.gcsUri,
+        )} WHERE id=${Number(itemId)}`;
+      }
     }
     // Return success response
     return NextResponse.json({

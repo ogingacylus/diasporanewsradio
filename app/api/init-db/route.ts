@@ -86,6 +86,7 @@ export async function seedDatabase() {
         updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
       )
     `;
+
     await sql`CREATE TABLE IF NOT EXISTS advices (
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
@@ -202,7 +203,7 @@ export async function seedDatabase() {
         success: false,
         error: error instanceof Error ? error.message : "Initialization failed",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

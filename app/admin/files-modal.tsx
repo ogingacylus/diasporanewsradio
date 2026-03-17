@@ -46,7 +46,7 @@ export function FilesModal({
   };
 
   const paraPicsCount = item?.paragraphs?.filter(
-    (item: any) => item.url?.length > 2,
+    (item: any) => item?.url?.length > 2,
   )?.length;
 
   return (
@@ -77,7 +77,7 @@ export function FilesModal({
                   </p>
                   <button
                     onClick={() => {
-                      setImageUrl(item.image_url);
+                      setImageUrl(item?.image_url);
                       setIsDialogOpen(true);
                     }}
                     className="text-xs text-green-600 hover:underline cursor-pointer">
@@ -89,7 +89,13 @@ export function FilesModal({
                   size="sm"
                   className="text-red-600 hover:text-red-700 bg-red-200"
                   onClick={() => {
-                    handleDeleteImage(item.image_url, item.id, "false", 0, []);
+                    handleDeleteImage(
+                      item?.image_url,
+                      item?.id,
+                      "false",
+                      0,
+                      [],
+                    );
                   }}>
                   Delete
                 </Button>
@@ -97,7 +103,7 @@ export function FilesModal({
             </div>
           ) : (
             <FileUpload
-              itemId={String(item.id)}
+              itemId={String(item?.id)}
               type={type}
               userId="IMG"
               onUploadComplete={handleUploadComplete}
@@ -111,14 +117,14 @@ export function FilesModal({
         <div className="flex justify-between">
           <h2 className="text-md text-indigo-500 font-bold">Paragraphs</h2>
         </div>
-        {item.paragraphs.map((para: any, index: number) => (
+        {item?.paragraphs?.map((para: any, index: number) => (
           <div key={index}>
             {index !== 0 && (
               <div
                 className="inset-shadow-sm inset-shadow-green-500 rounded-md"
                 key={index}>
                 <h1 className="text-lg font-bold pl-4 pt-4">
-                  {item.image_url
+                  {item?.image_url
                     ? `Paragraph ${index + 1} Image`
                     : `Upload paragraph ${index + 1} image`}
                 </h1>
@@ -137,7 +143,7 @@ export function FilesModal({
                         </p>
                         <button
                           onClick={() => {
-                            setImageUrl(para.url);
+                            setImageUrl(para?.url);
                             setIsDialogOpen(true);
                           }}
                           className="text-xs text-green-600 hover:underline cursor-pointer">
@@ -150,8 +156,8 @@ export function FilesModal({
                         className="text-red-600 hover:text-red-700 bg-red-200"
                         onClick={() => {
                           handleDeleteImage(
-                            para.url,
-                            item.id,
+                            para?.url,
+                            item?.id,
                             "true",
                             index,
                             item.paragraphs,
@@ -163,7 +169,7 @@ export function FilesModal({
                   </div>
                 ) : (
                   <FileUpload
-                    itemId={String(item.id)}
+                    itemId={String(item?.id)}
                     type={type}
                     userId="IMG"
                     onUploadComplete={handleUploadComplete}

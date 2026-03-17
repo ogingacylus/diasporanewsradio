@@ -16,6 +16,7 @@ import {
   revalidateHealth,
   updateHealthItem,
 } from "@/lib/actions";
+import { Trash } from "lucide-react";
 
 export function NewsForm({
   formData,
@@ -33,6 +34,15 @@ export function NewsForm({
   setIsFormDialogOpen: any;
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [paragraphs, setParagraphs] = useState([{ description: "", url: "" }]);
+
+  useEffect(() => {
+    if (initialData) {
+      setParagraphs(formData.paragraphs);
+    } else {
+      setParagraphs([{ description: "", url: "" }]);
+    }
+  }, [initialData]);
 
   const handleModalClose = (modlaState: any) => {
     setIsFormDialogOpen(modlaState);
@@ -54,6 +64,7 @@ export function NewsForm({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    formData.paragraphs = paragraphs;
 
     try {
       const response = await fetch("/api/health", {
@@ -88,6 +99,8 @@ export function NewsForm({
   const handleEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    formData.paragraphs = paragraphs;
+
     try {
       const response = await fetch(`/api/admin/health/${formData?.id}`, {
         method: "PUT",
@@ -117,7 +130,35 @@ export function NewsForm({
     // return;
   };
 
-  console.log(formData.description);
+  function addParagraphs() {
+    const currentItems = paragraphs;
+    setParagraphs([...currentItems, { description: "", url: "" }]);
+  }
+
+  function removeParagraph(index: number, item: any) {
+    if (initialData) {
+      if (item.url) {
+        alert("Delete paragraph image first!");
+        return;
+      }
+    }
+    let currentItems = paragraphs;
+    if (currentItems.length > 1) {
+      setParagraphs(currentItems.filter((_: any, i: any) => i !== index));
+    }
+  }
+
+  const handleParagraphChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+    index: number,
+  ) => {
+    const { value } = e.target;
+    const updatedItems = paragraphs.map((item: any, idx: any) =>
+      index === idx ? { ...item, description: value } : item,
+    );
+
+    setParagraphs(updatedItems);
+  };
   return (
     <Dialog open={isFormDialogOpen} onOpenChange={handleModalClose}>
       <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-gray-50">
@@ -167,22 +208,38 @@ export function NewsForm({
               />
             </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Description
-            </label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={(e) =>
-                setFormData({ ...formData, description: e.target.value })
-              }
-              placeholder="Article content"
-              rows={6}
-              className="w-full px-3 py-2 border border-green-500 rounded-md bg-background"
-              required
-            />
+          <hr />
+          <div className="flex justify-between">
+            <h1 className="text-md font-bold">Paragraphs</h1>{" "}
+            <Button
+              type="button"
+              className="bg-green-600 hover:bg-green-500 cursor-pointer"
+              onClick={addParagraphs}>
+              Add paragraphs
+            </Button>
           </div>
+          {paragraphs?.map((item: any, index: number) => (
+            <div className="border border-1 rounded-md p-2" key={index}>
+              <div className="flex justify-between pb-2">
+                {" "}
+                <label className="block text-sm font-medium mb-2">
+                  Paragraph {index + 1}
+                </label>{" "}
+                <Trash
+                  className={`h-5 text-red-600 hover:text-red-500 cursor-pointer ${index < 1 && "hidden"}`}
+                  onClick={() => removeParagraph(index, item)}
+                />
+              </div>
+              <textarea
+                value={paragraphs[index].description}
+                onChange={(e) => handleParagraphChange(e, index)}
+                placeholder="Content"
+                rows={5}
+                className="w-full px-3 py-2 border border-green-500 rounded-md bg-background"
+                required
+              />
+            </div>
+          ))}
 
           <div className="py-4 flex gap-4  items-center">
             <input

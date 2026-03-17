@@ -90,8 +90,7 @@ export default function ShowDetail({ show, shows }: { show: any; shows: any }) {
                     href="https://zeno.fm/radio/diaspora-news-radio/"
                     className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
                     target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                    rel="noopener noreferrer">
                     <Play size={18} />
                     Listen Now
                   </Link>
@@ -111,8 +110,7 @@ export default function ShowDetail({ show, shows }: { show: any; shows: any }) {
                 <div className="mt-6 pt-6 border-t border-border">
                   <Link
                     href="/shows"
-                    className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium"
-                  >
+                    className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium">
                     ← Back to Shows
                   </Link>
                 </div>
@@ -128,12 +126,40 @@ export default function ShowDetail({ show, shows }: { show: any; shows: any }) {
                 {show.title}
               </h1>
               <p className="text-lg text-accent mb-6">{show.genre}</p>
-
-              <div className="prose prose-invert max-w-none mb-12">
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {show.description}
-                </p>
-              </div>
+              {show.description ? (
+                <div className="prose prose-invert max-w-none mb-12">
+                  {show.description
+                    .split("\n\n")
+                    .map((paragraph: any, index: any) => {
+                      return (
+                        <p
+                          key={index}
+                          className="text-lg text-muted-foreground leading-relaxed mb-6">
+                          {paragraph}
+                        </p>
+                      );
+                    })}
+                </div>
+              ) : (
+                <>
+                  {show.paragraphs?.map((item: any, index: number) => (
+                    <div key={index}>
+                      {index !== 0 && item.url && (
+                        <div className="rounded-xl overflow-hidden mb-12 h-full">
+                          <img
+                            src={item.url || "/placeholder.svg"}
+                            alt={show.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="prose prose-invert max-w-none mb-4">
+                        {item.description}
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
 
               {/* Show Details */}
               <div className="grid md:grid-cols-2 gap-6 mb-12">
@@ -191,8 +217,7 @@ export default function ShowDetail({ show, shows }: { show: any; shows: any }) {
                     href="https://zeno.fm/radio/diaspora-news-radio/"
                     className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
                     target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                    rel="noopener noreferrer">
                     <Play size={18} />
                     Listen Now
                   </Link>
@@ -212,8 +237,7 @@ export default function ShowDetail({ show, shows }: { show: any; shows: any }) {
                 <div className="mt-6 pt-6 border-t border-border">
                   <Link
                     href="/shows"
-                    className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium"
-                  >
+                    className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium">
                     ← Back to Shows
                   </Link>
                 </div>

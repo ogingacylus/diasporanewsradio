@@ -16,7 +16,7 @@ export async function GET() {
     });
     return NextResponse.json(
       { error: "Failed to fetch news. Please run /api/init-db" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -24,22 +24,17 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { title, author, description, published, category } = body;
+    const { title, author, description, published, category, paragraphs } =
+      body;
 
-    if (!title || !description) {
-      return NextResponse.json(
-        { error: "Title and description are required" },
-        { status: 400 }
-      );
-    }
     const timeNow = new Date();
     const slug = title
       .toLowerCase()
       .replace(/[^\w\s-]/g, "")
       .replace(/\s+/g, "-");
-
+    const para = JSON.stringify(paragraphs);
     const result = await sql`
-      INSERT INTO health (title, author, description, published) VALUES (${title}, ${author}, ${description}, ${published})
+      INSERT INTO health (title, author, published, paragraphs) VALUES (${title}, ${author},  ${published}, ${para})
     `;
 
     return NextResponse.json({ success: true }, { status: 201 });
@@ -47,7 +42,7 @@ export async function POST(request: NextRequest) {
     console.error("[v0] News POST error:", error);
     return NextResponse.json(
       { error: "Failed to create news" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

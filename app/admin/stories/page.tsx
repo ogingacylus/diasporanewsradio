@@ -8,11 +8,12 @@ import { CMSSidebar } from "@/components/cms-sidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Trash2, Edit2, Plus, ImageIcon } from "lucide-react";
+import { Trash2, Edit2, Plus, ImageIcon, UploadCloud } from "lucide-react";
 import { PictureDialog } from "../picture-dialog";
 import { FileUpload } from "../file-upload";
 import { StoriesForm } from "./form";
 import { formatDate } from "@/lib/utils";
+import { FilesModal } from "../files-modal";
 
 interface Show {
   id: number;
@@ -33,6 +34,8 @@ export default function AdminShowsPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
+  const [isFilesDialogOpen, setIsFilesDialogOpen] = useState(false);
+  const [filesModalItem, setFilesModalItem] = useState({});
   const [imageUrl, setImageUrl] = useState("");
   const [formData, setFormData] = useState({
     id: 0,
@@ -74,7 +77,13 @@ export default function AdminShowsPage() {
     }
   };
 
-  const handleDeleteImage = async (url: string, itemId: any) => {
+  const handleDeleteImage = async (
+    url: string,
+    itemId: any,
+    isPara: any,
+    index: any,
+    paragraphItems: any,
+  ) => {
     if (!confirm("Are you sure?")) return;
     try {
       const response = await fetch(`/api/delete-image/`, {
@@ -83,6 +92,9 @@ export default function AdminShowsPage() {
           imageUrl: url,
           itemId: itemId,
           type: "stories",
+          isPara: isPara,
+          index: String(index),
+          paragraphItems: paragraphItems,
         }),
       });
       if (response.ok) {
@@ -97,6 +109,15 @@ export default function AdminShowsPage() {
   const handleDelete = async (id: number, item: any) => {
     if (item?.image_url) {
       alert("Delete  picture first!");
+      return;
+    }
+
+    const para = item.paragraphs?.filter(
+      (par: any, index: number) => par.url?.length > 2,
+    );
+
+    if (para.length > 0) {
+      alert("Delete paragraph pictures first!");
       return;
     }
     if (!confirm("Are you sure?")) return;
@@ -123,8 +144,7 @@ export default function AdminShowsPage() {
             <h1 className="text-md md:text-4xl font-bold">Manage Stories</h1>
             <Button
               onClick={() => setIsFormDialogOpen(true)}
-              className="bg-accent hover:bg-accent/90 gap-2"
-            >
+              className="bg-accent hover:bg-accent/90 gap-2">
               <Plus size={20} />
               New Story
             </Button>
@@ -148,51 +168,13 @@ export default function AdminShowsPage() {
               stories.map((show: any) => (
                 <Card
                   key={show.id}
-                  className="p-4 border-primary/20 flex justify-between items-center"
-                >
+                  className="p-4 border-primary/20 flex justify-between items-center">
                   <PictureDialog
                     url={imageUrl}
                     isDialogOpen={isDialogOpen}
                     setIsDialogOpen={setIsDialogOpen}
                   />
-                  {show?.image_url ? (
-                    <div className="space-y-2 w-full md:w-96">
-                      <div className="flex items-center gap-2 p-3 bg-green-50 rounded-lg border border-green-200">
-                        <ImageIcon className="h-5 w-5 text-green-600" />
-                        <div className="flex-1">
-                          <p className="text-sm font-medium text-green-800">
-                            Picture uploaded
-                          </p>
-                          <button
-                            onClick={() => {
-                              setImageUrl(show.image_url);
-                              setIsDialogOpen(true);
-                            }}
-                            className="text-xs text-green-600 hover:underline cursor-pointer"
-                          >
-                            View picture
-                          </button>
-                        </div>
-                        <Button
-                          type="button"
-                          size="sm"
-                          className="text-red-600 hover:text-red-700 bg-red-200"
-                          onClick={() => {
-                            handleDeleteImage(show.image_url, show.id);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <FileUpload
-                      itemId={String(show.id)}
-                      type="stories"
-                      userId="IMG"
-                      onUploadComplete={handleUploadComplete}
-                    />
-                  )}
+
                   <div>
                     <h3 className="font-bold">{show.title}</h3>
                     <p className="text-sm text-muted-foreground">
@@ -205,8 +187,7 @@ export default function AdminShowsPage() {
                     <p
                       className={`text-md ${
                         show.published ? "text-green-500" : "text-yellow-500"
-                      }`}
-                    >
+                      }`}>
                       {show.published ? "Published" : "Not Published"}
                     </p>
                   </div>
@@ -220,17 +201,26 @@ export default function AdminShowsPage() {
                         setFormData(show);
                         setIsFormDialogOpen(true);
                         setInitialData(true);
-                      }}
-                    >
+                      }}>
                       <Edit2 size={16} />
                       Edit
                     </Button>
                     <Button
                       size="sm"
                       variant="outline"
+                      className="gap-1 text-blue-500 hover:bg-blue-500/90 bg-transparent cursor-pointer"
+                      onClick={() => {
+                        setFilesModalItem(show);
+                        setIsFilesDialogOpen(true);
+                      }}>
+                      <UploadCloud size={16} />
+                      Pictures
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
                       className="gap-1 text-red-500 hover:bg-red-500/10 bg-transparent"
-                      onClick={() => handleDelete(show.id, show)}
-                    >
+                      onClick={() => handleDelete(show.id, show)}>
                       <Trash2 size={16} />
                       Delete
                     </Button>
@@ -238,6 +228,20 @@ export default function AdminShowsPage() {
                 </Card>
               ))
             )}
+            <FilesModal
+              isFilesDialogOpen={isFilesDialogOpen}
+              setIsFilesDialogOpen={setIsFilesDialogOpen}
+              item={filesModalItem}
+              type="stories"
+              userId="IMG"
+              onUploadComplete={handleUploadComplete}
+              isDialogOpen={isDialogOpen}
+              setIsDialogOpen={setIsDialogOpen}
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
+              handleDeleteImage={handleDeleteImage}
+              handleUploadComplete={handleUploadComplete}
+            />
           </div>
         </div>
       </main>

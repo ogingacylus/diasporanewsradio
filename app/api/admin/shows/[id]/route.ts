@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const param = await params;
@@ -14,23 +14,25 @@ export async function DELETE(
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to delete show" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const param = await params;
     const id = Number.parseInt(param.id);
 
     const body = await request.json();
-    const { title, description, host, schedule, genre, published } = body;
-    await sql`UPDATE shows SET title=${title}, description=${description}, host=${host}, 
-      schedule=${schedule}, genre=${genre}, published=${published} WHERE id = ${id}`;
+    const { title, description, host, schedule, genre, published, paragraphs } =
+      body;
+    const para = JSON.stringify(paragraphs);
+    await sql`UPDATE shows SET title=${title},  host=${host}, 
+      schedule=${schedule}, genre=${genre}, published=${published}, paragraphs=${para} WHERE id = ${id}`;
 
     return NextResponse.json({ success: true });
   } catch (error) {

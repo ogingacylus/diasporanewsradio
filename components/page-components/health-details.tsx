@@ -17,10 +17,6 @@ export default function HealthDetail({ article }: { article: any }) {
     }
   }, []);
 
-  const str = article.description;
-  const split = str.split("\n\n");
-  console.log(split);
-
   return (
     <>
       <div className="pt-24 pb-20">
@@ -66,19 +62,40 @@ export default function HealthDetail({ article }: { article: any }) {
           </div>
 
           {/* Article Content */}
-          <div className="prose prose-invert max-w-none mb-12">
-            {article.description
-              .split("\n\n")
-              .map((paragraph: any, index: any) => {
-                return (
-                  <p
-                    key={index}
-                    className="text-lg text-muted-foreground leading-relaxed mb-6">
-                    {paragraph}
-                  </p>
-                );
-              })}
-          </div>
+          {article.description ? (
+            <div className="prose prose-invert max-w-none mb-12">
+              {article?.description
+                ?.split("\n\n")
+                ?.map((paragraph: any, index: any) => {
+                  return (
+                    <p
+                      key={index}
+                      className="text-lg text-muted-foreground leading-relaxed mb-6">
+                      {paragraph}
+                    </p>
+                  );
+                })}
+            </div>
+          ) : (
+            <>
+              {article?.paragraphs?.map((item: any, index: number) => (
+                <div key={index}>
+                  {index !== 0 && item.url && (
+                    <div className="rounded-xl overflow-hidden mb-12 h-full">
+                      <img
+                        src={item.url || "/placeholder.svg"}
+                        alt={article.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="prose prose-invert max-w-none mb-4">
+                    {item.description}
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
 
           {/* Share Section */}
           <div className="border-t border-border pt-8">

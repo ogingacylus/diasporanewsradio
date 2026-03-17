@@ -44,6 +44,7 @@ export function NewsForm({
       setParagraphs([{ description: "", url: "" }]);
     }
   }, [initialData]);
+
   const handleModalClose = (modlaState: any) => {
     setIsFormDialogOpen(modlaState);
     resetForm();
@@ -127,7 +128,13 @@ export function NewsForm({
     setParagraphs([...currentItems, { description: "", url: "" }]);
   }
 
-  function removeParagraph(index: number) {
+  function removeParagraph(index: number, item: any) {
+    if (initialData) {
+      if (item.url) {
+        alert("Delete paragraph image first!");
+        return;
+      }
+    }
     let currentItems = paragraphs;
     if (currentItems.length > 1) {
       setParagraphs(currentItems.filter((_: any, i: any) => i !== index));
@@ -208,7 +215,7 @@ export function NewsForm({
               Add paragraphs
             </Button>
           </div>
-          {paragraphs.map((_: any, index: number) => (
+          {paragraphs?.map((item: any, index: number) => (
             <div className="border border-1 rounded-md p-2" key={index}>
               <div className="flex justify-between pb-2">
                 {" "}
@@ -217,7 +224,7 @@ export function NewsForm({
                 </label>{" "}
                 <Trash
                   className={`h-5 text-red-600 hover:text-red-500 cursor-pointer ${index < 1 && "hidden"}`}
-                  onClick={() => removeParagraph(index)}
+                  onClick={() => removeParagraph(index, item)}
                 />
               </div>
               <textarea

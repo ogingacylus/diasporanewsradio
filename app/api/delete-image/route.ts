@@ -49,14 +49,23 @@ export async function DELETE(
     }
 
     if (type === "shows") {
-      await sql`UPDATE shows SET image_url=${null} WHERE id=${itemId}`;
+      if (isPara === "true") {
+        await sql`UPDATE shows SET paragraphs=${JSON.stringify(paragraphItems)} WHERE id=${itemId}`;
+      } else {
+        await sql`UPDATE shows SET image_url=${null} WHERE id=${itemId}`;
+      }
     }
 
     if (type === "testimonials") {
       await sql`UPDATE testimonials SET image_url=${null} WHERE id=${itemId}`;
     }
+
     if (type === "stories") {
-      await sql`UPDATE stories SET image_url=${null} WHERE id=${itemId}`;
+      if (isPara === "true") {
+        await sql`UPDATE stories SET paragraphs=${JSON.stringify(paragraphItems)} WHERE id=${itemId}`;
+      } else {
+        await sql`UPDATE stories SET image_url=${null} WHERE id=${itemId}`;
+      }
     }
 
     if (type === "media") {
@@ -67,7 +76,11 @@ export async function DELETE(
     }
 
     if (type === "health") {
-      await sql`UPDATE health SET image_url=${null} WHERE id=${itemId}`;
+      if (isPara === "true") {
+        await sql`UPDATE health SET paragraphs=${JSON.stringify(paragraphItems)} WHERE id=${itemId}`;
+      } else {
+        await sql`UPDATE health SET image_url=${null} WHERE id=${itemId}`;
+      }
     }
     NextResponse.json({ message: `deleted.` });
 

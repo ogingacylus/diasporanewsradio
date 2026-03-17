@@ -31,6 +31,7 @@ export default function AdminNewsPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
   const [isFilesDialogOpen, setIsFilesDialogOpen] = useState(false);
+  const [filesModalItem, setFilesModalItem] = useState({});
   const [imageUrl, setImageUrl] = useState("");
   const [formData, setFormData] = useState({
     id: 0,
@@ -195,9 +196,12 @@ export default function AdminNewsPage() {
                       size="sm"
                       variant="outline"
                       className="gap-1 text-blue-500 hover:bg-blue-500/90 bg-transparent cursor-pointer"
-                      onClick={() => setIsFilesDialogOpen(true)}>
+                      onClick={() => {
+                        setFilesModalItem(item);
+                        setIsFilesDialogOpen(true);
+                      }}>
                       <UploadCloud size={16} />
-                      Upload files
+                      Pictures
                     </Button>
                     <Button
                       size="sm"
@@ -207,24 +211,24 @@ export default function AdminNewsPage() {
                       <Trash2 size={16} />
                       Delete
                     </Button>
-                    <FilesModal
-                      isFilesDialogOpen={isFilesDialogOpen}
-                      setIsFilesDialogOpen={setIsFilesDialogOpen}
-                      item={item}
-                      type="news"
-                      userId="IMG"
-                      onUploadComplete={handleUploadComplete}
-                      isDialogOpen={isDialogOpen}
-                      setIsDialogOpen={setIsDialogOpen}
-                      imageUrl={imageUrl}
-                      setImageUrl={setImageUrl}
-                      handleDeleteImage={handleDeleteImage}
-                      handleUploadComplete={handleUploadComplete}
-                    />
                   </div>
                 </Card>
               ))
             )}
+            <FilesModal
+              isFilesDialogOpen={isFilesDialogOpen}
+              setIsFilesDialogOpen={setIsFilesDialogOpen}
+              item={filesModalItem}
+              type="news"
+              userId="IMG"
+              onUploadComplete={handleUploadComplete}
+              isDialogOpen={isDialogOpen}
+              setIsDialogOpen={setIsDialogOpen}
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
+              handleDeleteImage={handleDeleteImage}
+              handleUploadComplete={handleUploadComplete}
+            />
           </div>
         </div>
       </main>

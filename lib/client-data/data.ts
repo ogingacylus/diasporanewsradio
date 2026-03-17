@@ -25,6 +25,7 @@ export async function fetchHomeShows() {
   try {
     const data =
       await sql`SELECT * FROM shows WHERE published=true ORDER BY created_at DESC LIMIT 4 `;
+
     return data;
   } catch (error) {
     console.log(error);
@@ -55,8 +56,12 @@ export async function fetchShowById(id: number) {
   try {
     const data =
       await sql`SELECT * FROM shows WHERE published=true AND id=${id}`;
+    const showsData = data.map((item: any, index: number) => ({
+      ...item,
+      paragraphs: JSON.parse(item.paragraphs),
+    }));
 
-    return data[0];
+    return showsData[0];
   } catch (error) {
     console.log(error);
   }
@@ -87,7 +92,7 @@ export async function fetchNewsById(id: number) {
     const data =
       await sql`SELECT * FROM news WHERE published=true AND id=${id}`;
     data[0].paragraphs = JSON.parse(data[0].paragraphs);
-    console.log(data);
+
     return data[0];
   } catch (error) {
     console.log(error);
@@ -148,7 +153,12 @@ export async function fetchStoryById(id: number) {
   try {
     const data =
       await sql`SELECT * FROM stories WHERE published=true AND id=${id}`;
-    return data[0];
+    const storyData = data.map((item: any, index: number) => ({
+      ...item,
+      paragraphs: JSON.parse(item.paragraphs),
+    }));
+
+    return storyData[0];
   } catch (error) {
     console.log(error);
   }
@@ -158,7 +168,11 @@ export async function fetchAdices() {
   try {
     const data =
       await sql`SELECT * FROM advices WHERE published=true ORDER BY created_at DESC`;
-    return data;
+    const advicehData = data.map((item: any, index: number) => ({
+      ...item,
+      paragraphs: JSON.parse(item.paragraphs),
+    }));
+    return advicehData;
   } catch (error) {
     console.log(error);
   }
@@ -168,7 +182,11 @@ export async function fetchAdiceById(id: number) {
   try {
     const data =
       await sql`SELECT * FROM advices WHERE published=true AND id=${id}`;
-    return data[0];
+    const adviceData = data.map((item: any, index: number) => ({
+      ...item,
+      paragraphs: JSON.parse(item.paragraphs),
+    }));
+    return adviceData[0];
   } catch (error) {
     console.log(error);
   }
@@ -188,7 +206,12 @@ export async function fetchHealth() {
   try {
     const data =
       await sql`SELECT * FROM health WHERE published=true ORDER BY created_at DESC`;
-    return data;
+    const healthData = data.map((item: any, index: number) => ({
+      ...item,
+      paragraphs: JSON.parse(item.paragraphs),
+    }));
+
+    return healthData;
   } catch (error) {
     console.log(error);
   }
@@ -198,7 +221,12 @@ export async function fetchHealthById(id: number) {
   try {
     const data =
       await sql`SELECT * FROM health WHERE published=true AND id=${id}`;
-    return data[0];
+    const healthData = data.map((item: any, index: number) => ({
+      ...item,
+      paragraphs: JSON.parse(item.paragraphs),
+    }));
+    console.log(healthData);
+    return healthData[0];
   } catch (error) {
     console.log(error);
   }

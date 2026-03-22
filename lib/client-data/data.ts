@@ -119,6 +119,15 @@ export async function fetchEventsById(id: number) {
   }
 }
 
+export async function fetchAds() {
+  try {
+    const data =
+        await sql`SELECT * FROM marketing WHERE published=true ORDER BY created_at DESC`;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function fetchPremiumAds() {
   try {
     const data =

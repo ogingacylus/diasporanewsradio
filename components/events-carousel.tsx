@@ -45,26 +45,7 @@ export function EventsCarousel({ events_ }: { events_: any }) {
     setAutoplay(false);
   };
 
-  // if (!loading) {
-  //   return (
-  //     <section className="w-full bg-card py-16 pt-32">
-  //       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-  //         <div className="mb-8">
-  //           <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-  //             Upcoming Events
-  //           </h2>
-  //           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900"></div>
-  //           <p className="mt-2 text-muted-foreground">
-  //             Don't miss our exciting radio events_ and live performances
-  //           </p>
-  //         </div>
-  //         <div className="text-center py-12 flex gap-2 items-center justify-center font-bold">
-  //           <p className="animate-pulse text-3xl text-accent">Loading .....</p>
-  //         </div>
-  //       </div>
-  //     </section>
-  //   );
-  // }
+
 
   if (events_.length === 0) {
     return (

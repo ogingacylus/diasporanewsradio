@@ -84,16 +84,6 @@ export function NewsForm({
       console.error("Failed to create event:", error);
       setIsLoading(false);
     }
-
-    // const form = new FormData(e.currentTarget);
-    // const res = await createHealthItem(form);
-
-    // if (res.success) {
-    //   resetForm();
-    //   setIsLoading(false);
-    //   setIsFormDialogOpen(false);
-    // }
-    // setIsLoading(false);
   };
 
   const handleEdit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -117,17 +107,6 @@ export function NewsForm({
       console.error("Failed to create event:", error);
       setIsLoading(false);
     }
-    // const form = new FormData(e.currentTarget);
-    // const res = await updateHealthItem(form);
-
-    // if (res.success) {
-    //   resetForm();
-    //   setIsLoading(false);
-    //   setIsFormDialogOpen(false);
-    //   return;
-    // }
-    // setIsLoading(false);
-    // return;
   };
 
   function addParagraphs() {

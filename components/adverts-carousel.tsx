@@ -1,7 +1,7 @@
 "use client";
 
 import {useEffect, useState} from "react";
-import {ChevronLeft, ChevronRight} from "lucide-react";
+import {ChevronLeft, ChevronRight, MapPin, PhoneIcon} from "lucide-react";
 import Link from "next/link";
 
 interface Event {
@@ -111,27 +111,19 @@ export function AdvertsCarousel({events_}: { events_: any }) {
 
                     {/* Event info overlay */}
                     <div
-                        className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
-                        <h3 className="text-2xl font-bold text-white sm:text-3xl">
+                        className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/95 to-transparent p-6 sm:px-16">
+                        <h3 className="text-4xl font-bold text-white sm:text-3xl">
                             {events_[currentIndex].title}
                         </h3>
-                        <p className="mt-2 text-sm text-gray-200 sm:text-base">
-                            {new Date(events_[currentIndex].date).toLocaleDateString(
-                                "en-US",
-                                {
-                                    weekday: "long",
-                                    month: "long",
-                                    day: "numeric",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                }
-                            )}
+
+                        <p className="text-sm text-gray-300 sm:text-base flex gap-2 items-center pb-2">
+                            <MapPin className="h-5 w-5 text-accent"/> {events_[currentIndex].location}
                         </p>
-                        <p className="text-sm text-gray-300 sm:text-base">
-                            {events_[currentIndex].location}
+                        <p className="text-sm text-gray-300 sm:text-base flex gap-2 items-center">
+                            <PhoneIcon className="h-5 w-5 text-accent"/>{events_[currentIndex].phone}
                         </p>
                         <p className="mt-3 max-w-md text-sm text-gray-200 sm:text-base">
-                            {events_[currentIndex].description}
+                            {events_[currentIndex].description?.trim().split(/\s+/).slice(1, 15).join(' ')}.......
                         </p>
                         <div className="mt-4">
                             <Link href={`/advertisements`}>

@@ -157,65 +157,79 @@ export async function POST(request: NextRequest) {
     // 1. EVENT
 
     if (type === "event") {
-      await sql`UPDATE events SET image_url=${String(
-        uploadResult.gcsUri,
-      )} WHERE id=${Number(itemId)}`;
+      await sql`UPDATE events
+                      SET image_url=${String(uploadResult.gcsUri)}
+                      WHERE id = ${Number(itemId)}`;
     }
     // NEWS
     if (type === "news") {
       if (isPara === "true") {
-        await sql`UPDATE news SET paragraphs=${JSON.stringify(newParaItems)} WHERE id=${Number(itemId)}`;
+        await sql`UPDATE news
+                          SET paragraphs=${JSON.stringify(newParaItems)}
+                          WHERE id = ${Number(itemId)}`;
       } else {
-        await sql`UPDATE news SET image_url=${String(
-          uploadResult.gcsUri,
-        )} WHERE id=${Number(itemId)}`;
+        await sql`UPDATE news
+                          SET image_url=${String(uploadResult.gcsUri)}
+                          WHERE id = ${Number(itemId)}`;
       }
     }
 
     if (type === "shows") {
       if (isPara === "true") {
-        await sql`UPDATE shows SET paragraphs=${JSON.stringify(newParaItems)} WHERE id=${Number(itemId)}`;
+        await sql`UPDATE shows
+                          SET paragraphs=${JSON.stringify(newParaItems)}
+                          WHERE id = ${Number(itemId)}`;
       } else {
-        await sql`UPDATE shows SET image_url=${String(
-          uploadResult.gcsUri,
-        )} WHERE id=${Number(itemId)}`;
+        await sql`UPDATE shows
+                          SET image_url=${String(uploadResult.gcsUri)}
+                          WHERE id = ${Number(itemId)}`;
       }
     }
     if (type === "testimonials") {
-      await sql`UPDATE testimonials SET image_url=${String(
-        uploadResult.gcsUri,
-      )} WHERE id=${Number(itemId)}`;
+      await sql`UPDATE testimonials
+                      SET image_url=${String(uploadResult.gcsUri)}
+                      WHERE id = ${Number(itemId)}`;
     }
 
     if (type === "stories") {
       if (isPara === "true") {
-        await sql`UPDATE stories SET paragraphs=${JSON.stringify(newParaItems)} WHERE id=${Number(itemId)}`;
+        await sql`UPDATE stories
+                          SET paragraphs=${JSON.stringify(newParaItems)}
+                          WHERE id = ${Number(itemId)}`;
       } else {
-        await sql`UPDATE stories SET image_url=${String(
-          uploadResult.gcsUri,
-        )} WHERE id=${Number(itemId)}`;
+        await sql`UPDATE stories
+                          SET image_url=${String(uploadResult.gcsUri)}
+                          WHERE id = ${Number(itemId)}`;
       }
     }
 
     if (type === "media") {
-      await sql`UPDATE media SET image_url=${String(
-        uploadResult.gcsUri,
-      )} WHERE id=${Number(itemId)}`;
+      await sql`UPDATE media
+                      SET image_url=${String(uploadResult.gcsUri)}
+                      WHERE id = ${Number(itemId)}`;
     }
 
     if (type === "marketing") {
-      await sql`UPDATE marketing SET image_url=${String(
-        uploadResult.gcsUri,
-      )} WHERE id=${Number(itemId)}`;
+      if (isPara === "true") {
+        await sql`UPDATE marketing
+                          SET paragraphs=${JSON.stringify(newParaItems)}
+                          WHERE id = ${Number(itemId)}`;
+      } else {
+        await sql`UPDATE marketing
+                          SET image_url=${String(uploadResult.gcsUri)}
+                          WHERE id = ${Number(itemId)}`;
+      }
     }
 
     if (type === "health") {
       if (isPara === "true") {
-        await sql`UPDATE health SET paragraphs=${JSON.stringify(newParaItems)} WHERE id=${Number(itemId)}`;
+        await sql`UPDATE health
+                          SET paragraphs=${JSON.stringify(newParaItems)}
+                          WHERE id = ${Number(itemId)}`;
       } else {
-        await sql`UPDATE health SET image_url=${String(
-          uploadResult.gcsUri,
-        )} WHERE id=${Number(itemId)}`;
+        await sql`UPDATE health
+                          SET image_url=${String(uploadResult.gcsUri)}
+                          WHERE id = ${Number(itemId)}`;
       }
     }
     // Return success response

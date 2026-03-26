@@ -122,7 +122,7 @@ export async function fetchEventsById(id: number) {
 export async function fetchAds() {
   try {
     const data =
-        await sql`SELECT * FROM marketing WHERE published=true ORDER BY created_at DESC`;
+      await sql`SELECT * FROM marketing WHERE published=true ORDER BY created_at DESC`;
     return data;
   } catch (error) {
     console.log(error);
@@ -143,6 +143,18 @@ export async function fetchLocalAds() {
     const data =
       await sql`SELECT * FROM marketing WHERE published=true AND premium=false ORDER BY created_at DESC`;
     return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function fetchAdById(id: number) {
+  try {
+    const data =
+      await sql`SELECT * FROM marketing WHERE published=true AND id=${id} `;
+
+    data[0].paragraphs = JSON.parse(data[0].paragraphs);
+    return data[0];
   } catch (error) {
     console.log(error);
   }

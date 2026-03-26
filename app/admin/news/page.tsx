@@ -78,34 +78,34 @@ export default function AdminNewsPage() {
     };
 
     const handleDeleteImage = async (
-        url: string,
-        itemId: any,
-        isPara: any,
-        index: any,
-        paragraphItems: any,
+      url: string,
+      itemId: any,
+      isPara: any,
+      index: any,
+      paragraphItems: any,
     ) => {
-        if (!confirm("Are you sure?")) return;
-        setIsDeletingImage(true)
-        try {
-            const response = await fetch(`/api/delete-image/`, {
-                method: "DELETE",
-                body: JSON.stringify({
-                    imageUrl: url,
-                    itemId: itemId,
-                    type: "news",
-                    isPara: isPara,
-                    index: String(index),
-                    paragraphItems: paragraphItems,
-                }),
-            });
-            if (response.ok) {
-                fetchNews();
-                setIsDeletingImage(false)
-            }
-        } catch (error) {
-            console.error("Failed to delete:", error);
-            setIsDeletingImage(false)
+      if (!confirm("Are you sure?")) return;
+      setIsDeletingImage(true);
+      try {
+        const response = await fetch(`/api/delete-image/`, {
+          method: "DELETE",
+          body: JSON.stringify({
+            imageUrl: url,
+            itemId: itemId,
+            type: "news",
+            isPara: isPara,
+            index: String(index),
+            paragraphItems: paragraphItems,
+          }),
+        });
+        if (response.ok) {
+          fetchNews();
+          setIsDeletingImage(false);
         }
+      } catch (error) {
+        console.error("Failed to delete:", error);
+        setIsDeletingImage(false);
+      }
     };
 
     const handleDelete = async (id: number, item: any) => {

@@ -5,27 +5,29 @@ export const dynamic = "force-dynamic";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const param = await params;
     console.log("dsad", param);
     const id: any = Number.parseInt(param.id);
 
-    await sql`DELETE FROM marketing WHERE id = ${id}`;
+    await sql`DELETE
+                  FROM marketing
+                  WHERE id = ${id}`;
     return NextResponse.json({ success: true });
   } catch (error) {
     console.log(error);
     return NextResponse.json(
       { error: "Failed to delete news" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const param = await params;
@@ -41,9 +43,20 @@ export async function PUT(
       website,
       premium,
       published,
+      paragraphs,
     } = body;
-    await sql`UPDATE marketing SET title=${title}, category=${category}, description=${description},
-    location=${location}, phone=${phone}, website=${website}, premium=${premium}, published=${published} WHERE id = ${id}`;
+    const para = JSON.stringify(paragraphs);
+    await sql`UPDATE marketing
+                  SET title=${title},
+                      category=${category},
+                      description=${description},
+                      location=${location},
+                      phone=${phone},
+                      website=${website},
+                      premium=${premium},
+                      published=${published},
+                      paragraphs=${para}
+                  WHERE id = ${id}`;
 
     return NextResponse.json({ success: true });
   } catch (error) {

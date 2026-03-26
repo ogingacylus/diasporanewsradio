@@ -109,7 +109,7 @@ export function Navigation() {
 
                         {/* News Dropdown */}
                         <Link
-                            href="/News"
+                            href="/news"
                             className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors">
                             News
                         </Link>

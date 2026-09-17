@@ -6,6 +6,7 @@ import { TopNav } from "@/components/top-nav";
 import { Navigation } from "@/components/navigation";
 import { DataContextProvider } from "@/components/provider";
 import { fetchNews, fetchShows } from "@/lib/client-data/data";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
         type: "image/svg+xml",
       },
     ],
-    apple: "/apple-icon.png",
+    apple: "/diaspora-logo.png",
   },
 };
 
@@ -54,6 +55,7 @@ export default async function RootLayout({
           <Analytics />
         </DataContextProvider>
       </body>
+      <GoogleAnalytics gaId="G-D7Y964HQJW" />
     </html>
   );
 }

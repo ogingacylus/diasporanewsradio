@@ -3,13 +3,13 @@ import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    console.log("[v0] Fetching news from database...");
+    
     const news = await sql`SELECT *
                       FROM marketing
                       WHERE published = true
                       ORDER BY created_at DESC LIMIT 50
             `;
-    console.log("[v0] News fetched successfully:", news.length);
+
     return NextResponse.json(news);
   } catch (error) {
     console.error("[v0] News API error details:", {

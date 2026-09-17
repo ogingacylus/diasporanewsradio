@@ -4,7 +4,6 @@ export async function fetchHomeNews() {
   try {
     const data =
       await sql`SELECT * FROM news WHERE published=true ORDER BY updated_at DESC LIMIT 3 `;
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -246,7 +245,7 @@ export async function fetchHealthById(id: number) {
       ...item,
       paragraphs: JSON.parse(item.paragraphs),
     }));
-    console.log(healthData);
+
     return healthData[0];
   } catch (error) {
     console.log(error);

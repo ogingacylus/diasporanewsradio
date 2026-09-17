@@ -9,7 +9,7 @@ export async function DELETE(
 ) {
   try {
     const param = await params;
-    console.log("dsad", param);
+    ("dsad", param);
     const id: any = Number.parseInt(param.id);
 
     await sql`DELETE

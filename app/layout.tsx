@@ -21,20 +21,8 @@ export const metadata: Metadata = {
   description: "Listen to the world",
   generator: "",
   icons: {
-    icon: [
-      {
-        url: "/diaspora-logo.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/diaspora-logo.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/diaspora-logo.png",
-        type: "image/svg+xml",
-      },
-    ],
+    icon: "/diaspora-logo.png",
+
     apple: "/diaspora-logo.png",
   },
 };

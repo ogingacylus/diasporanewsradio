@@ -19,7 +19,7 @@ import {
     Megaphone,
     MessageSquareDot,
     MessageCircleMore,
-    HeartHandshakeIcon, MessageCircle,
+    HeartHandshakeIcon, MessageCircle, LockKeyhole,
 } from "lucide-react";
 
 export function CMSSidebar() {
@@ -34,6 +34,7 @@ export function CMSSidebar() {
 
     const menuItems = [
         {label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard},
+        {label: "Site Lock", href: "/admin/site-lock", icon: LockKeyhole},
         {label: "News & Updates", href: "/admin/news", icon: FileText},
         {label: "Shows", href: "/admin/shows", icon: Radio},
         {label: "Events", href: "/admin/events", icon: Calendar},

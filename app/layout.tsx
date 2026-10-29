@@ -7,6 +7,9 @@ import { Navigation } from "@/components/navigation";
 import { DataContextProvider } from "@/components/provider";
 import { fetchNews, fetchShows } from "@/lib/client-data/data";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { headers } from "next/headers";
+import { getSiteLocked } from "@/lib/site-settings";
+import { SiteLocked } from "./site-locked";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -32,6 +35,20 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const pathname = requestHeaders.get("x-pathname") ?? "/";
+  const isAdminRoute = pathname.startsWith("/admin");
+
+  if (!isAdminRoute && (await getSiteLocked())) {
+    return (
+      <html lang="en">
+        <body className="font-sans antialiased">
+          <SiteLocked />
+        </body>
+      </html>
+    );
+  }
+
   const shows = await fetchShows();
   const news = await fetchNews();
   return (
